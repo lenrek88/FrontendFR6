@@ -1,7 +1,13 @@
+import data from './data.json' assert {type: "json"};
+
 let list = [
 
 ];
 
+
+for (let item of data.tasks) {
+    addTask(item.name, item.priority);
+}
 const formHigh = document.querySelector('.formHigh');
 const formLow = document.querySelector('.formLow');
 
