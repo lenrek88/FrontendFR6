@@ -47,18 +47,12 @@ formLow.addEventListener('submit', formHandler);
 function changeStatus(event) {
 
     const thisTaskName = (event.target.nextElementSibling.textContent);
-    
-    console.log(event.target.checked);
-    
+        
     event.target.checked = !event.target.checked;
-
-    console.log(event.target.checked)
 
     const index = list.findIndex(task => task.name === thisTaskName);
     
     const findItem = list.find(element => element.name === thisTaskName);
-
-    console.log(index, findItem)
 
     findItem.status = findItem.status === "To Do" ? "Done" : "To Do";
 
