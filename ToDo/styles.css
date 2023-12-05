@@ -1,0 +1,86 @@
+* {
+    /* Text */
+
+    box-sizing: border-box;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+body {
+    height: 98vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #989898;
+}
+
+.main {
+    background: white;
+    padding: 1vh;
+    text-align: center;
+    width: 476px;
+    height: 688px;
+}
+
+.formHigh, .formLow{
+    border: 1px solid #989898;
+    border-radius: 6px;
+    display: flex;
+    width: 460px;
+    height: 45px;
+    background: #FFF;
+    align-items: center;
+    margin-bottom: 8px;
+
+}
+
+.formHigh > input, .formLow > input{
+    outline: none;
+    border: none;
+    width: 429px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.mainForm {
+    display: flex;
+    border: 1px solid #989898;
+    border-radius: 6px;
+    padding-top: 12px;
+    width: 460px;
+}
+
+.mainForm > input[type="checkbox"] {
+    align-items: first;
+    width: 21px;
+    height: 21px;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #998899;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+.mainForm > input[type="checkbox"]:checked {
+    background-color: #C4C4C4;
+    border-color: #998899;
+    box-shadow: inset 0px 0px 0px 2px #F4F4F4;
+
+}
+
+.mainForm > p {
+    width: 403px;
+
+}
+
+.mainForm > img {
+    margin-bottom: 40px
+}
