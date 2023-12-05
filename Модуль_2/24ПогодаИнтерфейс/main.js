@@ -9,8 +9,26 @@ let thisTempElement = document.querySelector('.thisTemp');
 let thisCityElement = document.querySelector('.thisCity');
 let likeElement = document.querySelector('.like');
 
+function Logger() {
+
+    this.result = 0;
+
+    this.start = function() {
+        this.result = Date.now();
+    }
+    
+    this.end = function () {
+        this.result = Date.now() - this.result;
+    }
+
+}
+
 function formHandler(e) {
     e.preventDefault();
+
+    const logger = new Logger();
+
+    logger.start();
 
     const cityName = e.target.textContent.trim() ? e.target.textContent.trim() : getCityName[0].value;    
 
@@ -22,7 +40,13 @@ function formHandler(e) {
         let thisTemp = (data.main.temp - 273.15).toFixed(0);
         thisTempElement.textContent = thisTemp;
         thisCityElement.textContent = data.name;
+
+        logger.end();
+        console.log(logger.result);
     })
+
+
+
 
 }
 
