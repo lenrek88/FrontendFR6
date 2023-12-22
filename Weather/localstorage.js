@@ -6,7 +6,7 @@ export const storage = {
     },
 
     getFavoriteCities() {
-        return JSON.parse(localStorage.getItem('FavoriteCity'));
+        return new Set(JSON.parse(localStorage.getItem('FavoriteCity')));
     },
     saveCurrentCity(city) {
         localStorage.setItem('ThisCity', city);

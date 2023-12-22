@@ -12,7 +12,6 @@ let likeElement = document.querySelector('.like');
 
 let currentCity = storage.getCurrentCity() ? storage.getCurrentCity() : 'Aktobe';
 
-
 function Logger() {
 
     this.result = 0;
@@ -28,13 +27,14 @@ function Logger() {
 }
 
 
-function formHandler(e) {
+async function formHandler(e) {
 
     if(e) {
         e.preventDefault();
 
     }
 
+    console.log(storage.getFavoriteCities())
     console.log('e', e?.target.textContent.trim())
     console.log('getCityName', getCityName[0].value)
     console.log('currentCity', currentCity)
@@ -49,9 +49,9 @@ function formHandler(e) {
 
     const url = `${serverUrl}?q=${cityName}&appid=${apiKey}`;
 
-    fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
+    try {
+    const response = await fetch(url)
+    const data = await response.json();
         let thisTemp = (data.main.temp - 273.15).toFixed(0);
         thisTempElement.textContent = thisTemp;
         thisCityElement.textContent = data.name;
@@ -91,18 +91,11 @@ function formHandler(e) {
              Sunset: ${sunsetHours}:${sunsetMinutes}
              </p>`
 
+             forecastF(cityName);
 
-
-        
-    })
-    .then(() => {
-        forecastF(cityName);
-
-    })
-    .catch((error) => {
-        console.log(error)
-    })
-
+    } catch (error) {     
+           console.log(error)
+    }
 }
 
 
@@ -134,7 +127,7 @@ function getUrlImage(id) {
 }
 
 
-function forecastF(cityName) {
+async function forecastF(cityName) {
     const deleteDiv = document.querySelectorAll('.forecast');
  
     for (let elem of deleteDiv) {
@@ -150,73 +143,52 @@ function forecastF(cityName) {
     const url2 = `${serverUrl2}?q=${cityName}&appid=${apiKey}`;
     let thisCloud = '';
     
-    fetch(url2)
-        .then(response => response.json())
-        .then(inf => {
-            inf.list.forEach(function(item,i,arr) {
-                if (i < 3) {
-                    let date = new Date(item.dt*1000);
+    const response = await fetch(url2);
+    const inf = await response.json()
+    
+    inf.list.forEach(function(item,i,arr) {
+            if (i < 3) {
+                let date = new Date(item.dt*1000);
 
-                    const pTime = document.createElement('p');
-                    pTime.classList.add('Time');
-                    let hours = date.getHours();
-                    if (hours < 10) {
-                        hours = "0" + hours
-                    }
-                    let minutes = date.getMinutes();
-                    if (minutes < 10) {
-                        minutes = "0" + minutes
-                    }
-                    pTime.textContent = `${hours}:${minutes}`
-
-
-                    const pTemp = document.createElement('p');
-                    pTemp.classList.add('temp')
-                    let temp = item.main.temp-273.15;
-                    pTemp.textContent = `Temperature: ${Math.floor(temp)}`;
+                const pTime = document.createElement('p');
+                pTime.classList.add('Time');
+                let hours = date.getHours();
+                if (hours < 10) {
+                    hours = "0" + hours
+                }
+                let minutes = date.getMinutes();
+                if (minutes < 10) {
+                    minutes = "0" + minutes
+                }
+                pTime.textContent = `${hours}:${minutes}`
 
 
-                    // const pRain = document.createElement('p');
-                    // pRain.classList.add('rain');
-                    // pRain.textContent = item.weather[0].main;
+                const pTemp = document.createElement('p');
+                pTemp.classList.add('temp')
+                let temp = item.main.temp-273.15;
+                pTemp.textContent = `Temperature: ${Math.floor(temp)}`;
 
-
-                    const pfeelsTemp = document.createElement('p');
-                    pfeelsTemp.classList.add('feelsTemp');
-                    let feelsLike = item.main.feels_like-273.15;
-                    pfeelsTemp.innerHTML = `Feels like: ${Math.floor(feelsLike)}`;
-               
-                    thisCloud = document.createElement('div');
-                    thisCloud.classList.add('thisCloud');
-                    thisCloud.style.backgroundImage = getUrlImage(item.weather[0].id);
-
-
-
-                    const div = document.createElement('div');
-                    div.classList.add('forecast');
-                    content3.append(div)
-                    div.append(pTime);
-                    div.append(pTemp);
-                    // div.append(pRain);
-                    div.append(pfeelsTemp);
-                    div.append(thisCloud);
-                    
-                    }
-
-
-              
-                
-                
-            })
-
-          
+                const pfeelsTemp = document.createElement('p');
+                pfeelsTemp.classList.add('feelsTemp');
+                let feelsLike = item.main.feels_like-273.15;
+                pfeelsTemp.innerHTML = `Feels like: ${Math.floor(feelsLike)}`;
             
+                thisCloud = document.createElement('div');
+                thisCloud.classList.add('thisCloud');
+                thisCloud.style.backgroundImage = getUrlImage(item.weather[0].id);
 
+
+
+                const div = document.createElement('div');
+                div.classList.add('forecast');
+                content3.append(div)
+                div.append(pTime);
+                div.append(pTemp);
+                div.append(pfeelsTemp);
+                div.append(thisCloud);
+                
+                }
         })
-
-     
-
-        
 }
 
 function likeElementHandler(event) {
