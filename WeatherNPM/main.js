@@ -1,4 +1,8 @@
 import { storage } from "./localstorage.js";
+import { format, formatDistance, formatRelative, subDays } from 'date-fns'
+
+console.log(format(new Date(), "'Today is a' eeee"));
+
 
 const serverUrl = 'http://api.openweathermap.org/data/2.5/weather';
 const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f'; // этот ключ имеет ограничение в кол-ве запросов, если будут ошибки - придется сгенерировать новый или спросить в чате
