@@ -1,14 +1,10 @@
-import { storage } from "./localstorage.js";
-import { format, formatDistance, formatRelative, subDays } from 'date-fns'
-
-console.log(format(new Date(), "'Today is a' eeee"));
-
+import { storage } from "./coockies.js";
 
 const serverUrl = 'http://api.openweathermap.org/data/2.5/weather';
 const apiKey = 'f660a2fb1e4bad108d6160b7f58c555f'; // этот ключ имеет ограничение в кол-ве запросов, если будут ошибки - придется сгенерировать новый или спросить в чате
 
 
-let likeArray = storage.getFavoriteCities() ? storage.getFavoriteCities() : new Set();
+let likeArray = storage.getFavoriteCities('FavoriteCity') ? storage.getFavoriteCities('FavoriteCity') : new Set();
 let getCityName = document.querySelector('.text');
 let thisTempElement = document.querySelector('.thisTemp');
 let thisCityElement = document.querySelector('.thisCity');
@@ -37,11 +33,6 @@ async function formHandler(e) {
         e.preventDefault();
 
     }
-
-    console.log(storage.getFavoriteCities())
-    console.log('e', e?.target.textContent.trim())
-    console.log('getCityName', getCityName[0].value)
-    console.log('currentCity', currentCity)
     
     const logger = new Logger();
 
@@ -210,6 +201,7 @@ function likreRemoveHandler(event) {
     let thisCityName = event.target.previousSibling.textContent;
     likeArray.delete(thisCityName);
     storage.saveFavoriteCities(likeArray);
+
     renderUiLike();
 
 }
