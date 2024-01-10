@@ -1,0 +1,1 @@
+{"mappings":"AAAA;;;;;;AAYA","sources":["style.css"],"sourcesContent":[".main {\r\n\r\n    margin: 250px auto;\r\n    width: 790px;\r\n    height: 227px;\r\n}\r\n\r\n.dateForm {\r\n\r\n\r\n}\r\n\r\n.dateFinish {\r\n    width: 552px;\r\n    height: 95px;\r\n\r\n}"],"names":[],"version":3,"file":"index.3a01df49.css.map","sourceRoot":"/__parcel_source_root/"}
