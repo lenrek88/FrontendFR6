@@ -1,4 +1,15 @@
-let list = [
+type massivObject = {
+    name: string;
+    status: string;
+    priority: string;
+}
+
+interface task{
+    task: string;
+    priority: string;
+}
+
+let list: massivObject[] = [
 
 ];
 
@@ -49,9 +60,9 @@ function changeStatus(event) {
     event.target.checked = !event.target.checked;
 
 
-    const index = list.findIndex(task => task.name === thisTaskName);
+    const index: any = list.findIndex(task => task.name === thisTaskName);
     
-    const findItem = list.find(element => element.name === thisTaskName);
+    const findItem: any = list.find(element => element.name === thisTaskName);
 
 
     findItem.status = findItem.status === "To Do" ? "Done" : "To Do";
@@ -69,7 +80,7 @@ function Task(name, status, priority) {
     this.priority = priority;
 }
 
-const addTask = (task, priority) => {
+const addTask = (task: string, priority: string) => {
     list.unshift( new Task(task, "To Do", priority) );
 
     renderUi();
@@ -126,4 +137,5 @@ function renderUi() {
         }
     
     })
+    console.log(list)
 }
