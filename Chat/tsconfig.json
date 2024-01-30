@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+      "target": "es6",
+      "module": "NodeNext",
+      "outDir": "./build",
+      "lib": ["ES2017", "DOM", "es5", "es6", "dom", "dom.iterable"]
+    }
+  }

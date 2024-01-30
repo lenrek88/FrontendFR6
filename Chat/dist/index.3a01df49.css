@@ -7,46 +7,45 @@ body {
 }
 
 .chat {
-  width: 320px;
-  height: 533px;
   background: #fff;
   border: 1px solid #000;
   grid-template-rows: 39px 445px 48px;
   grid-template-columns: 98px 140px 66px;
+  width: 320px;
+  height: 533px;
   margin: 200px auto;
   padding: 8px;
   display: grid;
 }
 
 .setting {
-  width: 98px;
-  height: 32px;
   background: #fff;
   border: 1px solid #000;
   grid-area: 1 / 1;
+  width: 98px;
+  height: 32px;
   font-size: 16px;
   line-height: 19px;
 }
 
 .exit {
-  width: 66px;
-  height: 32px;
   background: #fff;
   border: 1px solid #000;
   grid-area: 1 / 3;
+  width: 66px;
+  height: 32px;
   font-size: 16px;
   line-height: 19px;
 }
 
 .wrapper {
-  width: 304px;
-  height: 437px;
   border: 1px solid #000;
   flex-direction: column-reverse;
   grid-area: 2 / 1 / auto / 3;
+  width: 304px;
+  height: 437px;
   display: flex;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden auto;
 }
 
 .window {
@@ -59,9 +58,9 @@ body {
 }
 
 .post {
+  grid-area: 3 / 1;
   width: 304px;
   height: 32px;
-  grid-area: 3 / 1;
 }
 
 .post form {
@@ -69,23 +68,23 @@ body {
 }
 
 .post input {
-  width: 267px;
-  height: 32px;
   color: #7c7c7c;
   border: 1px solid #000;
   grid-area: 3 / 1 / auto / 2;
+  width: 267px;
+  height: 32px;
   padding-left: 7px;
   font-size: 16px;
   line-height: 19px;
 }
 
 .post button {
-  width: 29px;
-  height: 32px;
   color: #000;
   background: #fff;
   border: 1px solid #000;
   grid-area: 3 / 3;
+  width: 29px;
+  height: 32px;
   margin-left: auto;
   margin-right: 0;
 }
@@ -119,12 +118,12 @@ body {
 .modalSetting, .modalAuth, .modalEnter {
   opacity: 0;
   visibility: hidden;
-  width: 273px;
-  height: 319px;
   z-index: 30;
   text-align: center;
   background-color: #fff;
   border-radius: 3px;
+  width: 273px;
+  height: 319px;
   padding: 30px;
   transition: all .3s;
   position: fixed;
@@ -137,10 +136,10 @@ body {
 .overlay {
   opacity: 0;
   visibility: hidden;
-  width: 100%;
-  height: 100%;
   z-index: 20;
   background-color: #00000080;
+  width: 100%;
+  height: 100%;
   transition: all .3s;
   position: fixed;
   top: 0;
@@ -148,10 +147,10 @@ body {
 }
 
 .modalCross {
-  width: 15px;
-  height: 15px;
   fill: #444;
   cursor: pointer;
+  width: 15px;
+  height: 15px;
   position: absolute;
   top: 20px;
   right: 20px;
@@ -170,20 +169,20 @@ body {
 }
 
 .modalSetting input, .modalEnter input, .modalAuth input {
+  border: 1px solid #000;
   width: 207px;
   height: 32px;
-  border: 1px solid #000;
   padding-left: 7px;
   font-size: 16px;
   line-height: 19px;
 }
 
 .modalSetting button, .modalEnter button, .modalAuth button {
-  width: 30px;
-  height: 32px;
   color: #000;
   background: #fff;
   border: 1px solid #000;
+  width: 30px;
+  height: 32px;
   margin-left: auto;
   margin-right: 0;
 }
