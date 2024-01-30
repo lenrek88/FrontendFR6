@@ -13,4 +13,5 @@ exports.htmlElement = {
     email: document.querySelector('.codeInp'),
     modalSettingActive: document.querySelector('.modalSetting'),
     exit: document.querySelector('.exit'),
+    window: document.querySelector('.wrapper'),
 };

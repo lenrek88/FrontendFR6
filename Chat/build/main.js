@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const cookie_1 = require("../cookie");
 const htmlElement_1 = require("./htmlElement");
-const code = (0, cookie_1.getCookie)('code');
+let tempCode = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlbnJlazg4QHlhbmRleC5ydSIsImlhdCI6MTcwNjYyMzEzNiwiZXhwIjoxNzEwMjE5NTM2fQ.Q61M4ini8HXAft_x4w3SKjZCmCMrMfMbP0cLCnjVbBY';
+const code = tempCode || (0, cookie_1.getCookie)('code');
 let socket = new WebSocket(`wss://edu.strada.one/websockets?${code}`);
 function openSocket() {
     socket.onopen = function (e) {
@@ -19,11 +20,8 @@ function openSocket() {
                 }
             }).then(response => response.json())
                 .then(obj => {
-                console.log('Hi)) openSocket Else');
-                (0, cookie_1.setCookie)('message', obj.messages.reverse());
-                for (let value of obj.messages) {
-                    renderChat(value.user.email, value.user.name, value.text);
-                }
+                localStorage.setItem('message', JSON.stringify(obj));
+                renderChat();
             })
                 .catch(error => {
                 console.log(error);
@@ -48,7 +46,7 @@ function openSocket() {
 }
 socket.onmessage = function (event) {
     const thisMessage = JSON.parse(event.data);
-    renderChat(thisMessage.user.email, thisMessage.user.name, thisMessage.text);
+    renderMessage(thisMessage.user.email, thisMessage.user.name, thisMessage.text);
 };
 socket.onclose = function (event) {
     if (event.wasClean) {
@@ -173,7 +171,33 @@ function inpSendChatHandler(e) {
     socket.send(JSON.stringify({ text: message }));
     document.querySelector('.post').querySelector('input').value = '';
 }
-function renderChat(email, name, message) {
+htmlElement_1.htmlElement.window.addEventListener('scroll', mouseVisor);
+let n = 0;
+let shouldLoad = true;
+function mouseVisor() {
+    if (htmlElement_1.htmlElement.window.scrollHeight - (-htmlElement_1.htmlElement.window.scrollTop) - htmlElement_1.htmlElement.window.clientHeight <= 0) {
+        renderChat();
+    }
+}
+function renderChat() {
+    if (!shouldLoad)
+        return;
+    let objMessage = (JSON.parse(localStorage.getItem('message'))).messages;
+    let j = 0;
+    const slicedArray = objMessage.slice(0 + n, 20 + n);
+    for (let value of slicedArray) {
+        j++;
+        renderMessage(value.user.email, value.user.name, value.text);
+        if (j == 20) {
+            n = n + 20;
+        }
+        if (n == 280) {
+            alert('Вся история загружена');
+            shouldLoad = false;
+        }
+    }
+}
+function renderMessage(email, name, message) {
     const window = document.querySelector('.window');
     let temp = htmlElement_1.htmlElement.temp;
     const elem = document.createElement('div');

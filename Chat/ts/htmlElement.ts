@@ -11,5 +11,8 @@ export const htmlElement = {
     modalSettingActive : document.querySelector('.modalSetting'),
     exit: document.querySelector('.exit'),
     window: document.querySelector('.wrapper'),
+    postBut: document.querySelector('.post').querySelector('button'),
+    postInp: document.querySelector('.post').querySelector('input'),
+
 }
 

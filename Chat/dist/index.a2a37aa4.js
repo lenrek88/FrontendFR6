@@ -581,46 +581,45 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"3rz9v":[function(require,module,exports) {
 var _cookie = require("../cookie");
 var _htmlElement = require("./htmlElement");
-let tempCode = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlbnJlazg4QHlhbmRleC5ydSIsImlhdCI6MTcwNjYyMzEzNiwiZXhwIjoxNzEwMjE5NTM2fQ.Q61M4ini8HXAft_x4w3SKjZCmCMrMfMbP0cLCnjVbBY";
-const code = tempCode || (0, _cookie.getCookie)("code");
+var _render = require("./render");
+// let tempCode = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlbnJlazg4QHlhbmRleC5ydSIsImlhdCI6MTcwNjYyMzEzNiwiZXhwIjoxNzEwMjE5NTM2fQ.Q61M4ini8HXAft_x4w3SKjZCmCMrMfMbP0cLCnjVbBY'
+const code = (0, _cookie.getCookie)("code");
 let socket = new WebSocket(`wss://edu.strada.one/websockets?${code}`);
-function openSocket() {
-    socket.onopen = function(e) {
-        if (!code) {
-            (0, _htmlElement.htmlElement).modalAuth.classList.add("active");
+socket.onopen = function(e) {
+    if (!code) {
+        (0, _htmlElement.htmlElement).modalAuth.classList.add("active");
+        (0, _cookie.deleteCookie)("myName");
+        (0, _cookie.deleteCookie)("myEmail");
+    } else {
+        fetch("https://edu.strada.one/api/messages/", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${code}`
+            }
+        }).then((response)=>response.json()).then((obj)=>{
+            localStorage.setItem("message", JSON.stringify(obj));
+            mouseVisor();
+        }).catch((error)=>{
+            console.log(error);
+            (0, _cookie.deleteCookie)("code");
             (0, _cookie.deleteCookie)("myName");
             (0, _cookie.deleteCookie)("myEmail");
-        } else {
-            fetch("https://edu.strada.one/api/messages/", {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${code}`
-                }
-            }).then((response)=>response.json()).then((obj)=>{
-                localStorage.setItem("message", JSON.stringify(obj));
-                renderChat();
-            }).catch((error)=>{
-                console.log(error);
-                (0, _cookie.deleteCookie)("code");
-                (0, _cookie.deleteCookie)("myName");
-                (0, _cookie.deleteCookie)("myEmail");
-            });
-            fetch("https://edu.strada.one/api/user/me ", {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${code}`,
-                    "Accept": "application/json",
-                    "Content-Type": "application/json;charset=utf-8"
-                }
-            }).then((response)=>response.json()).then((obj)=>{
-                (0, _cookie.setCookie)("myName", obj.name);
-            }).catch((error)=>alert(error));
-        }
-    };
-}
+        });
+        fetch("https://edu.strada.one/api/user/me ", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${code}`,
+                "Accept": "application/json",
+                "Content-Type": "application/json;charset=utf-8"
+            }
+        }).then((response)=>response.json()).then((obj)=>{
+            (0, _cookie.setCookie)("myName", obj.name);
+        }).catch((error)=>alert(error));
+    }
+};
 socket.onmessage = function(event) {
     const thisMessage = JSON.parse(event.data);
-    renderMessage(thisMessage.user.email, thisMessage.user.name, thisMessage.text);
+    (0, _render.renderMessage)(thisMessage.user.email, thisMessage.user.name, thisMessage.text, true);
 };
 socket.onclose = function(event) {
     if (event.wasClean) alert(`[close] \u{421}\u{43E}\u{435}\u{434}\u{438}\u{43D}\u{435}\u{43D}\u{438}\u{435} \u{437}\u{430}\u{43A}\u{440}\u{44B}\u{442}\u{43E} \u{447}\u{438}\u{441}\u{442}\u{43E}, \u{43A}\u{43E}\u{434}=${event.code} \u{43F}\u{440}\u{438}\u{447}\u{438}\u{43D}\u{430}=${event.reason}`);
@@ -629,53 +628,50 @@ socket.onclose = function(event) {
 socket.onerror = function(error) {
     alert(`[error]`);
 };
-document.addEventListener("DOMContentLoaded", function() {
-    openSocket();
-    (0, _htmlElement.htmlElement).exit.addEventListener("click", function() {
-        (0, _cookie.deleteCookie)("code");
-        (0, _cookie.deleteCookie)("myName");
-        (0, _cookie.deleteCookie)("myEmail");
-        location.reload();
-    });
-    (0, _htmlElement.htmlElement).inp.addEventListener("click", function(e) {
-        e.preventDefault();
-        if ((0, _htmlElement.htmlElement).email instanceof HTMLInputElement) (0, _cookie.setCookie)("myEmail", (0, _htmlElement.htmlElement).email.value);
-        if ((0, _htmlElement.htmlElement).inp instanceof HTMLButtonElement) {
-            console.log("disabled!");
-            (0, _htmlElement.htmlElement).inp.disabled = true;
-        }
-        const email = {
-            "email": (0, _cookie.getCookie)("myEmail")
-        };
-        const strBody = JSON.stringify(email);
-        fetch("https://edu.strada.one/api/user", {
-            method: "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json;charset=utf-8"
-            },
-            body: strBody
-        }).then((response)=>response.json()).then((obj)=>{
-            console.log(obj);
-            (0, _htmlElement.htmlElement).modalSettingActive.classList.remove("active");
-            (0, _htmlElement.htmlElement).modalAuth.classList.remove("active");
-            (0, _htmlElement.htmlElement).modalEnter.classList.remove("active");
-            EntCode(e);
-            console.log(`\u{41A}\u{443}\u{43A}\u{438} \u{435}\u{43C}\u{435}\u{439}\u{43B} \u{441}\u{435}\u{439}\u{447}\u{430}\u{441}: ${(0, _cookie.getCookie)("myEmail")}`);
-        }).catch((error)=>alert(error));
-    });
-    (0, _htmlElement.htmlElement).modalButtons.addEventListener("click", modalChangeName);
-    for (let element of (0, _htmlElement.htmlElement).closeButtons)element.addEventListener("click", function(e) {
-        e.preventDefault();
+(0, _htmlElement.htmlElement).exit.addEventListener("click", function() {
+    (0, _cookie.deleteCookie)("code");
+    (0, _cookie.deleteCookie)("myName");
+    (0, _cookie.deleteCookie)("myEmail");
+    location.reload();
+});
+(0, _htmlElement.htmlElement).inp.addEventListener("click", function(e) {
+    e.preventDefault();
+    if ((0, _htmlElement.htmlElement).email instanceof HTMLInputElement) (0, _cookie.setCookie)("myEmail", (0, _htmlElement.htmlElement).email.value);
+    if ((0, _htmlElement.htmlElement).inp instanceof HTMLButtonElement) {
+        console.log("disabled!");
+        (0, _htmlElement.htmlElement).inp.disabled = true;
+    }
+    const email = {
+        "email": (0, _cookie.getCookie)("myEmail")
+    };
+    const strBody = JSON.stringify(email);
+    fetch("https://edu.strada.one/api/user", {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json;charset=utf-8"
+        },
+        body: strBody
+    }).then((response)=>response.json()).then((obj)=>{
+        console.log(obj);
         (0, _htmlElement.htmlElement).modalSettingActive.classList.remove("active");
         (0, _htmlElement.htmlElement).modalAuth.classList.remove("active");
         (0, _htmlElement.htmlElement).modalEnter.classList.remove("active");
-    });
+        EntCode(e);
+    }).catch((error)=>alert(error));
+});
+// РАЗОБРАТЬСЯ С ФУНКЦИЯМИ!
+(0, _htmlElement.htmlElement).modalButtons.addEventListener("click", modalChangeName);
+for (let element of (0, _htmlElement.htmlElement).closeButtons)element.addEventListener("click", function(e) {
+    e.preventDefault();
+    (0, _htmlElement.htmlElement).modalSettingActive.classList.remove("active");
+    (0, _htmlElement.htmlElement).modalAuth.classList.remove("active");
+    (0, _htmlElement.htmlElement).modalEnter.classList.remove("active");
 });
 function modalChangeName() {
     (0, _htmlElement.htmlElement).modalSettingActive.classList.add("active");
     const inpName = document.querySelector(".inpName");
-    inpName.value = (0, _cookie.getCookie)("myName") || (0, _cookie.getCookie)("myEmail") || "\u0412\u0430\u043D\u044C\u043A\u0430";
+    inpName.value = (0, _cookie.getCookie)("myName") || "";
 }
 const butName = (0, _htmlElement.htmlElement).butName;
 (0, _htmlElement.htmlElement).butName.addEventListener("click", entName);
@@ -708,7 +704,6 @@ function EntCode(e) {
     (0, _htmlElement.htmlElement).modalEnter.classList.add("active");
     const enter = document.querySelector(".enter");
     enter.addEventListener("click", codeEnt);
-    openSocket();
 }
 function codeEnt(event) {
     event.preventDefault();
@@ -718,12 +713,10 @@ function codeEnt(event) {
     (0, _htmlElement.htmlElement).modalEnter.classList.remove("active");
     modalChangeName();
 }
-const post = document.querySelector(".post");
-const inp = post.querySelector("button");
-inp.addEventListener("click", inpSendChatHandler);
+(0, _htmlElement.htmlElement).postBut.addEventListener("click", inpSendChatHandler);
 function inpSendChatHandler(e) {
     e.preventDefault();
-    const message = document.querySelector(".post").querySelector("input").value;
+    const message = (0, _htmlElement.htmlElement).postInp.value;
     if (message === "") {
         alert("\u0421\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u0435 \u043D\u0435 \u043C\u043E\u0436\u0435\u0442 \u0431\u044B\u0442\u044C \u043F\u0443\u0441\u0442\u044B\u043C!");
         return;
@@ -731,41 +724,14 @@ function inpSendChatHandler(e) {
     socket.send(JSON.stringify({
         text: message
     }));
-    document.querySelector(".post").querySelector("input").value = "";
+    (0, _htmlElement.htmlElement).postInp.value = "";
 }
 (0, _htmlElement.htmlElement).window.addEventListener("scroll", mouseVisor);
-let n = 0;
-let shouldLoad = true;
 function mouseVisor() {
-    if ((0, _htmlElement.htmlElement).window.scrollHeight - -(0, _htmlElement.htmlElement).window.scrollTop - (0, _htmlElement.htmlElement).window.clientHeight <= 0) renderChat();
-}
-function renderChat() {
-    if (!shouldLoad) return;
-    let objMessage = JSON.parse(localStorage.getItem("message")).messages;
-    let j = 0;
-    const slicedArray = objMessage.slice(0 + n, 20 + n);
-    for (let value of slicedArray){
-        j++;
-        renderMessage(value.user.email, value.user.name, value.text);
-        if (j == 20) n = n + 20;
-        if (n == 280) {
-            alert("\u0412\u0441\u044F \u0438\u0441\u0442\u043E\u0440\u0438\u044F \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u0430");
-            shouldLoad = false;
-        }
-    }
-}
-function renderMessage(email, name, message) {
-    const window = document.querySelector(".window");
-    let temp = (0, _htmlElement.htmlElement).temp;
-    const elem = document.createElement("div");
-    if (email === (0, _cookie.getCookie)("myEmail")) elem.classList.add("me");
-    else elem.classList.add("to");
-    if (temp instanceof HTMLTemplateElement) elem.append(temp.content.cloneNode(true));
-    elem.querySelector(".text").innerHTML = `${name}: ${message}`;
-    window.append(elem);
+    if ((0, _htmlElement.htmlElement).window.scrollHeight - -(0, _htmlElement.htmlElement).window.scrollTop - (0, _htmlElement.htmlElement).window.clientHeight <= 0) (0, _render.renderChat)();
 }
 
-},{"../cookie":"7KFrp","./htmlElement":"cpdmS"}],"7KFrp":[function(require,module,exports) {
+},{"../cookie":"7KFrp","./htmlElement":"cpdmS","./render":"1kFK5"}],"7KFrp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getCookie", ()=>getCookie);
@@ -842,9 +808,50 @@ const htmlElement = {
     email: document.querySelector(".codeInp"),
     modalSettingActive: document.querySelector(".modalSetting"),
     exit: document.querySelector(".exit"),
-    window: document.querySelector(".wrapper")
+    window: document.querySelector(".wrapper"),
+    postBut: document.querySelector(".post").querySelector("button"),
+    postInp: document.querySelector(".post").querySelector("input")
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["5qqEh","3rz9v"], "3rz9v", "parcelRequire94c2")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1kFK5":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "renderChat", ()=>renderChat);
+parcelHelpers.export(exports, "renderMessage", ()=>renderMessage);
+var _htmlElement = require("./htmlElement");
+var _cookie = require("../cookie");
+let n = 0;
+let shouldLoad = true;
+function renderChat() {
+    if (!shouldLoad) return;
+    let objMessage = JSON.parse(localStorage.getItem("message")).messages;
+    let j = 0;
+    const slicedArray = objMessage.slice(0 + n, 20 + n);
+    for (let value of slicedArray){
+        j++;
+        renderMessage(value.user.email, value.user.name, value.text, false);
+        if (j == 20) n = n + 20;
+        if (n == 280) {
+            alert("\u0412\u0441\u044F \u0438\u0441\u0442\u043E\u0440\u0438\u044F \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u0430");
+            shouldLoad = false;
+        }
+    }
+}
+function renderMessage(email, name, message, oneMessage) {
+    const window = document.querySelector(".window");
+    let temp = (0, _htmlElement.htmlElement).temp;
+    let boolean = false;
+    const elem = document.createElement("div");
+    if (email === (0, _cookie.getCookie)("myEmail")) {
+        elem.classList.add("me");
+        boolean = true;
+    } else elem.classList.add("to");
+    if (temp instanceof HTMLTemplateElement) elem.append(temp.content.cloneNode(true));
+    elem.querySelector(".text").innerHTML = `${name}: ${message}`;
+    if (oneMessage) window.prepend(elem);
+    else window.append(elem);
+}
+
+},{"./htmlElement":"cpdmS","../cookie":"7KFrp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["5qqEh","3rz9v"], "3rz9v", "parcelRequire94c2")
 
 //# sourceMappingURL=index.a2a37aa4.js.map

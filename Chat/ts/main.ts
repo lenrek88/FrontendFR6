@@ -1,13 +1,14 @@
 import {deleteCookie, getCookie, setCookie} from "../cookie";
 import {htmlElement} from "./htmlElement";
+import { renderChat } from "./render";
+import { renderMessage } from "./render";
 
-let tempCode = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlbnJlazg4QHlhbmRleC5ydSIsImlhdCI6MTcwNjYyMzEzNiwiZXhwIjoxNzEwMjE5NTM2fQ.Q61M4ini8HXAft_x4w3SKjZCmCMrMfMbP0cLCnjVbBY'
-const code = tempCode || getCookie('code');
+// let tempCode = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlbnJlazg4QHlhbmRleC5ydSIsImlhdCI6MTcwNjYyMzEzNiwiZXhwIjoxNzEwMjE5NTM2fQ.Q61M4ini8HXAft_x4w3SKjZCmCMrMfMbP0cLCnjVbBY'
+const code =   getCookie('code');
 let socket = new WebSocket(`wss://edu.strada.one/websockets?${code}`);
 
 
-function openSocket() {
-    socket.onopen = function(e) {
+socket.onopen = function(e) {
         if (!code) {
             htmlElement.modalAuth.classList.add('active');
             deleteCookie('myName');
@@ -21,7 +22,7 @@ function openSocket() {
             }).then(response => response.json())
                 .then(obj => {
                         localStorage.setItem('message', JSON.stringify(obj));
-                        renderChat();
+                        mouseVisor();
                 })
                 .catch(error => {
                         console.log(error);
@@ -47,7 +48,7 @@ function openSocket() {
     
         }
     }
-}
+
 
 
 
@@ -55,7 +56,7 @@ function openSocket() {
 socket.onmessage = function(event) {
     const thisMessage = JSON.parse(event.data);
 
-    renderMessage(thisMessage.user.email, thisMessage.user.name, thisMessage.text);
+    renderMessage(thisMessage.user.email, thisMessage.user.name, thisMessage.text, true);
 };
 
 
@@ -72,72 +73,68 @@ socket.onerror = function(error) {
 };
 
 
-document.addEventListener('DOMContentLoaded', function (){
+htmlElement.exit.addEventListener('click', function(){
+    deleteCookie('code');
+    deleteCookie('myName');
+    deleteCookie('myEmail');
+    location.reload();
+})
 
-    openSocket();
-
-    htmlElement.exit.addEventListener('click', function(){
-        deleteCookie('code');
-        deleteCookie('myName');
-        deleteCookie('myEmail');
-        location.reload();
-    })
-
-    htmlElement.inp.addEventListener('click', function (e){
-        e.preventDefault();
-        if (htmlElement.email instanceof HTMLInputElement) {
-            setCookie('myEmail', htmlElement.email.value);
-        }
-        if (htmlElement.inp instanceof HTMLButtonElement ) {
-            console.log('disabled!')
-            htmlElement.inp.disabled = true;
-        }
+htmlElement.inp.addEventListener('click', function (e){
+    e.preventDefault();
+    if (htmlElement.email instanceof HTMLInputElement) {
+        setCookie('myEmail', htmlElement.email.value);
+    }
+    if (htmlElement.inp instanceof HTMLButtonElement ) {
+      console.log('disabled!')
+       htmlElement.inp.disabled = true;
+    }
         
         
-        const email = { 'email': getCookie('myEmail') };
-        const strBody = JSON.stringify(email);
-        fetch('https://edu.strada.one/api/user', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: strBody
+    const email = { 'email': getCookie('myEmail') };
+    const strBody = JSON.stringify(email);
+    fetch('https://edu.strada.one/api/user', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: strBody
     }).then(response => response.json())
-            .then(obj => {
-                console.log(obj)
-                htmlElement.modalSettingActive.classList.remove('active');
-                htmlElement.modalAuth.classList.remove('active');
-                htmlElement.modalEnter.classList.remove('active');
-                EntCode(e);
-                console.log(`Куки емейл сейчас: ${getCookie('myEmail')}`)
-            })
-            .catch(error => alert(error));
-
+    .then(obj => {
+            console.log(obj)
+            htmlElement.modalSettingActive.classList.remove('active');
+            htmlElement.modalAuth.classList.remove('active');
+            htmlElement.modalEnter.classList.remove('active');
+            EntCode(e);
+        })
+        .catch(error => alert(error));
     })
 
-   
 
-    htmlElement.modalButtons.addEventListener('click', modalChangeName); 
+// РАЗОБРАТЬСЯ С ФУНКЦИЯМИ!
+
+
+htmlElement.modalButtons.addEventListener('click', modalChangeName); 
     
 
-        for (let element of htmlElement.closeButtons) {
-            element.addEventListener('click', function (e){
-                e.preventDefault();
-                htmlElement.modalSettingActive.classList.remove('active');
-                htmlElement.modalAuth.classList.remove('active');
-                htmlElement.modalEnter.classList.remove('active');
-            });
-        }
+for (let element of htmlElement.closeButtons) {
+        element.addEventListener('click', function (e){
+            e.preventDefault();
+            htmlElement.modalSettingActive.classList.remove('active');
+            htmlElement.modalAuth.classList.remove('active');
+            htmlElement.modalEnter.classList.remove('active');
+        });
+}
 
-});
+
 
 
 
  function modalChangeName(){
     htmlElement.modalSettingActive.classList.add('active');
     const inpName = document.querySelector('.inpName') as HTMLInputElement
-    inpName.value = getCookie('myName') || getCookie('myEmail') || 'Ванька';
+    inpName.value = getCookie('myName') || ''
 
 }
 
@@ -181,7 +178,6 @@ function EntCode(e) {
     htmlElement.modalEnter.classList.add('active');
     const enter = document.querySelector('.enter');
     enter.addEventListener('click', codeEnt);
-    openSocket();
 }
 
 function codeEnt (event){
@@ -196,15 +192,14 @@ function codeEnt (event){
 
 }
 
-const post = document.querySelector('.post');
-const inp = post.querySelector('button');
 
-inp.addEventListener('click', inpSendChatHandler);
+
+htmlElement.postBut.addEventListener('click', inpSendChatHandler);
 
 function inpSendChatHandler (e) {
     e.preventDefault();
 
-    const message = document.querySelector('.post').querySelector('input').value;
+    const message = htmlElement.postInp.value;
 
     if (message === '') {
         alert('Сообщение не может быть пустым!')
@@ -213,52 +208,14 @@ function inpSendChatHandler (e) {
 
     socket.send(JSON.stringify({ text: message }));
 
-    document.querySelector('.post').querySelector('input').value = '';
+    htmlElement.postInp.value = '';
 }
 
     htmlElement.window.addEventListener('scroll', mouseVisor)
-    let n = 0;
-    let shouldLoad = true;
 
-  function mouseVisor() {
+
+function mouseVisor() {
     if (htmlElement.window.scrollHeight - (-htmlElement.window.scrollTop) - htmlElement.window.clientHeight <= 0 ) {
         renderChat()
-      }
-}
-
-function renderChat() {
-    
-    if (!shouldLoad) return;
-
-    let objMessage = (JSON.parse(localStorage.getItem('message'))).messages;
-    let j = 0;
-    const slicedArray = objMessage.slice(0 + n, 20 + n);
-
-    for (let value of slicedArray) {
-        j++;
-        renderMessage(value.user.email, value.user.name, value.text);
-        if (j == 20) {
-            n = n + 20;
-        }
-        if (n == 280) {
-            alert('Вся история загружена');
-            shouldLoad = false;
-        }
     }
-}
-
-function renderMessage(email, name, message) {
-    const window = document.querySelector('.window');
-    let temp = htmlElement.temp;
-    const elem = document.createElement('div');
-    if (email === getCookie('myEmail')) {
-        elem.classList.add('me');
-    } else {
-        elem.classList.add('to');
-    }
-    if (temp instanceof HTMLTemplateElement) {
-        elem.append(temp.content.cloneNode(true));
-    }
-    elem.querySelector('.text').innerHTML = `${name}: ${message}`;
-    window.append(elem);
 }
