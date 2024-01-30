@@ -50,7 +50,7 @@ body {
 
 .window {
   background: #fff;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: flex-end;
   align-items: end;
   padding: 8px;

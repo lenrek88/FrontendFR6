@@ -733,16 +733,25 @@ function inpSendChatHandler(e) {
     }));
     document.querySelector(".post").querySelector("input").value = "";
 }
+(0, _htmlElement.htmlElement).window.addEventListener("scroll", mouseVisor);
+let n = 0;
+let shouldLoad = true;
+function mouseVisor() {
+    if ((0, _htmlElement.htmlElement).window.scrollHeight - -(0, _htmlElement.htmlElement).window.scrollTop - (0, _htmlElement.htmlElement).window.clientHeight <= 0) renderChat();
+}
 function renderChat() {
-    let objMessage = JSON.parse(localStorage.getItem("message")).messages.reverse();
-    let j, n = 0;
-    console.log(objMessage);
-    const slicedArray = objMessage.slice(280 - n, 300 - n);
-    console.log(slicedArray);
+    if (!shouldLoad) return;
+    let objMessage = JSON.parse(localStorage.getItem("message")).messages;
+    let j = 0;
+    const slicedArray = objMessage.slice(0 + n, 20 + n);
     for (let value of slicedArray){
         j++;
         renderMessage(value.user.email, value.user.name, value.text);
-    // if (j > 20) break;
+        if (j == 20) n = n + 20;
+        if (n == 280) {
+            alert("\u0412\u0441\u044F \u0438\u0441\u0442\u043E\u0440\u0438\u044F \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u0430");
+            shouldLoad = false;
+        }
     }
 }
 function renderMessage(email, name, message) {
@@ -832,7 +841,8 @@ const htmlElement = {
     inp: document.querySelector(".code"),
     email: document.querySelector(".codeInp"),
     modalSettingActive: document.querySelector(".modalSetting"),
-    exit: document.querySelector(".exit")
+    exit: document.querySelector(".exit"),
+    window: document.querySelector(".wrapper")
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["5qqEh","3rz9v"], "3rz9v", "parcelRequire94c2")

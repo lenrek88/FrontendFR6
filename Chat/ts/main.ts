@@ -216,18 +216,34 @@ function inpSendChatHandler (e) {
     document.querySelector('.post').querySelector('input').value = '';
 }
 
+    htmlElement.window.addEventListener('scroll', mouseVisor)
+    let n = 0;
+    let shouldLoad = true;
+
+  function mouseVisor() {
+    if (htmlElement.window.scrollHeight - (-htmlElement.window.scrollTop) - htmlElement.window.clientHeight <= 0 ) {
+        renderChat()
+      }
+}
+
 function renderChat() {
+    
+    if (!shouldLoad) return;
 
+    let objMessage = (JSON.parse(localStorage.getItem('message'))).messages;
+    let j = 0;
+    const slicedArray = objMessage.slice(0 + n, 20 + n);
 
-    let objMessage = (JSON.parse(localStorage.getItem('message'))).messages.reverse();
-    let j, n = 0;
-    console.log(objMessage)
-    const slicedArray = objMessage.slice(280 - n, 300 - n);
-    console.log(slicedArray)
     for (let value of slicedArray) {
         j++;
         renderMessage(value.user.email, value.user.name, value.text);
-        // if (j > 20) break;
+        if (j == 20) {
+            n = n + 20;
+        }
+        if (n == 280) {
+            alert('Вся история загружена');
+            shouldLoad = false;
+        }
     }
 }
 

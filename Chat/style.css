@@ -62,7 +62,7 @@ body {
 
 .window {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     justify-content: flex-end;
     align-items: end;
 
