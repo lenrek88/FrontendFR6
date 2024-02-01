@@ -1,18 +1,18 @@
-import {deleteCookie, getCookie, setCookie} from "../cookie";
-import {htmlElement} from "./htmlElement";
+import { deleteCookie, getCookie, setCookie } from "../cookie";
+import { htmlElement } from "./htmlElement";
 import { renderChat } from "./render";
 import { renderMessage } from "./render";
+import { openModalChangeName } from "./changeName";
+import { submitUserName } from "./changeName";
 
 // let tempCode = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlbnJlazg4QHlhbmRleC5ydSIsImlhdCI6MTcwNjYyMzEzNiwiZXhwIjoxNzEwMjE5NTM2fQ.Q61M4ini8HXAft_x4w3SKjZCmCMrMfMbP0cLCnjVbBY'
-const code =   getCookie('code');
+const code = getCookie('code');
 let socket = new WebSocket(`wss://edu.strada.one/websockets?${code}`);
-
 
 socket.onopen = function(e) {
         if (!code) {
             htmlElement.modalAuth.classList.add('active');
-            deleteCookie('myName');
-            deleteCookie('myEmail');
+            clearCookie();
         } else {
             fetch('https://edu.strada.one/api/messages/', {
                 method: 'GET',
@@ -26,9 +26,7 @@ socket.onopen = function(e) {
                 })
                 .catch(error => {
                         console.log(error);
-                        deleteCookie('code');
-                        deleteCookie('myName');
-                        deleteCookie('myEmail');
+                        clearCookie();
                     }
                 )
     
@@ -44,21 +42,13 @@ socket.onopen = function(e) {
                     setCookie('myName', obj.name);
                 })
                 .catch(error => alert(error));
-    
-    
         }
     }
 
-
-
-
-
 socket.onmessage = function(event) {
     const thisMessage = JSON.parse(event.data);
-
     renderMessage(thisMessage.user.email, thisMessage.user.name, thisMessage.text, true);
 };
-
 
 socket.onclose = function(event) {
     if (event.wasClean) {
@@ -67,30 +57,40 @@ socket.onclose = function(event) {
         console.log('[close] Соединение прервано');
     }
 };
+
 socket.onerror = function(error) {
     alert(`[error]`);
-
 };
 
-
 htmlElement.exit.addEventListener('click', function(){
-    deleteCookie('code');
-    deleteCookie('myName');
-    deleteCookie('myEmail');
+    clearCookie();
     location.reload();
 })
 
-htmlElement.inp.addEventListener('click', function (e){
-    e.preventDefault();
+function openModalAndAddListener() {
+    htmlElement.modalEnter.classList.add('active');
+    htmlElement.enter.addEventListener('click', saveCodeCookie);
+}
+
+function saveCodeCookie (event){
+    event.preventDefault();
+    let codeEnter;
+    if (htmlElement.codeEnter instanceof HTMLInputElement) {
+        codeEnter = htmlElement.codeEnter.value;
+    }
+    setCookie('code', codeEnter)
+    htmlElement.modalEnter.classList.remove('active');
+    openModalChangeName();
+}
+
+function sendConfirmationCodeEmail() {
     if (htmlElement.email instanceof HTMLInputElement) {
         setCookie('myEmail', htmlElement.email.value);
     }
-    if (htmlElement.inp instanceof HTMLButtonElement ) {
-      console.log('disabled!')
-       htmlElement.inp.disabled = true;
+    if (htmlElement.getCodeButton instanceof HTMLButtonElement ) {
+       htmlElement.getCodeButton.disabled = true;
     }
-        
-        
+         
     const email = { 'email': getCookie('myEmail') };
     const strBody = JSON.stringify(email);
     fetch('https://edu.strada.one/api/user', {
@@ -102,52 +102,27 @@ htmlElement.inp.addEventListener('click', function (e){
         body: strBody
     }).then(response => response.json())
     .then(obj => {
+            htmlElement.modalSettingActive.classList.remove('active');
+            htmlElement.modalAuth.classList.remove('active');
+            htmlElement.modalEnter.classList.remove('active');
+            openModalAndAddListener();
             console.log(obj)
-            htmlElement.modalSettingActive.classList.remove('active');
-            htmlElement.modalAuth.classList.remove('active');
-            htmlElement.modalEnter.classList.remove('active');
-            EntCode(e);
         })
-        .catch(error => alert(error));
-    })
-
-
-// РАЗОБРАТЬСЯ С ФУНКЦИЯМИ!
-
-
-htmlElement.modalButtons.addEventListener('click', modalChangeName); 
-    
-
-for (let element of htmlElement.closeButtons) {
-        element.addEventListener('click', function (e){
-            e.preventDefault();
-            htmlElement.modalSettingActive.classList.remove('active');
-            htmlElement.modalAuth.classList.remove('active');
-            htmlElement.modalEnter.classList.remove('active');
-        });
+    .catch(error => alert(error));
 }
 
-
-
-
-
- function modalChangeName(){
+ function openModalChangeName(){
     htmlElement.modalSettingActive.classList.add('active');
-    const inpName = document.querySelector('.inpName') as HTMLInputElement
-    inpName.value = getCookie('myName') || ''
-
+    if (htmlElement.inpName instanceof HTMLInputElement) {
+        htmlElement.inpName.value = getCookie('myName') || ''
+    }
 }
 
-
-const butName = htmlElement.butName ;
-
-htmlElement.butName.addEventListener('click', entName);
-
-function entName(e) {
+function submitUserName(e) {
     e.preventDefault();
     let userName;
-    if (butName.previousSibling.previousSibling instanceof HTMLInputElement) {
-        userName = { name : butName?.previousSibling?.previousSibling?.value }
+    if (htmlElement.inpName instanceof HTMLInputElement) {
+        userName = { name : htmlElement.inpName.value }
     }
     const useNameJson = JSON.stringify(userName)
 
@@ -160,62 +135,55 @@ function entName(e) {
         },
         body: useNameJson
     }).then(response => response.json())
-        .then(obj => {
-            if (butName.previousSibling.previousSibling instanceof HTMLInputElement)
-            setCookie('myName', butName.previousSibling.previousSibling.value);
-            const modalSettingActive = document.querySelector('.modalSetting');
-            modalSettingActive.classList.remove('active');
-            console.log(obj.name)
+    .then(obj => {
+            if (htmlElement.butName.previousSibling.previousSibling instanceof HTMLInputElement)
+            setCookie('myName', htmlElement.butName.previousSibling.previousSibling.value);
+            htmlElement.modalSettingActive.classList.remove('active');
             location.reload();
                    })
-        .catch(error => console.log(error));
+    .catch(error => console.log(error));
 
 }
 
-function EntCode(e) {
-    e.preventDefault();
-    console.log('Выполнилась функция EntCode')
-    htmlElement.modalEnter.classList.add('active');
-    const enter = document.querySelector('.enter');
-    enter.addEventListener('click', codeEnt);
-}
-
-function codeEnt (event){
-    event.preventDefault();
-    let codeEnter;
-    if (htmlElement.codeEnter instanceof HTMLInputElement) {
-        codeEnter = htmlElement.codeEnter.value;
-    }
-    setCookie('code', codeEnter)
-    htmlElement.modalEnter.classList.remove('active');
-    modalChangeName();
-
-}
-
-
-
-htmlElement.postBut.addEventListener('click', inpSendChatHandler);
 
 function inpSendChatHandler (e) {
     e.preventDefault();
 
     const message = htmlElement.postInp.value;
-
     if (message === '') {
         alert('Сообщение не может быть пустым!')
         return;
     }
-
     socket.send(JSON.stringify({ text: message }));
-
     htmlElement.postInp.value = '';
 }
-
-    htmlElement.window.addEventListener('scroll', mouseVisor)
 
 
 function mouseVisor() {
     if (htmlElement.window.scrollHeight - (-htmlElement.window.scrollTop) - htmlElement.window.clientHeight <= 0 ) {
         renderChat()
     }
+}
+
+function clearCookie() {
+    deleteCookie('myName');
+    deleteCookie('myEmail');
+    deleteCookie('code');
+}
+
+htmlElement.window.addEventListener('scroll', mouseVisor)
+htmlElement.postBut.addEventListener('click', inpSendChatHandler);
+htmlElement.getCodeButton.addEventListener('click', sendConfirmationCodeEmail);
+htmlElement.modalButtons.addEventListener('click', openModalChangeName); 
+htmlElement.butName.addEventListener('click', submitUserName);
+
+for (let element of htmlElement.closeButtons) {
+        element.addEventListener('click', function (e){
+            e.preventDefault();
+            htmlElement.modalSettingActive.classList.remove('active');
+            htmlElement.modalAuth.classList.remove('active');
+            htmlElement.modalEnter.classList.remove('active');
+            location.reload();
+
+        });
 }

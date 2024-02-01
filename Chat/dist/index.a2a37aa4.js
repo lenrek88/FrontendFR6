@@ -588,8 +588,7 @@ let socket = new WebSocket(`wss://edu.strada.one/websockets?${code}`);
 socket.onopen = function(e) {
     if (!code) {
         (0, _htmlElement.htmlElement).modalAuth.classList.add("active");
-        (0, _cookie.deleteCookie)("myName");
-        (0, _cookie.deleteCookie)("myEmail");
+        clearCookie();
     } else {
         fetch("https://edu.strada.one/api/messages/", {
             method: "GET",
@@ -601,9 +600,7 @@ socket.onopen = function(e) {
             mouseVisor();
         }).catch((error)=>{
             console.log(error);
-            (0, _cookie.deleteCookie)("code");
-            (0, _cookie.deleteCookie)("myName");
-            (0, _cookie.deleteCookie)("myEmail");
+            clearCookie();
         });
         fetch("https://edu.strada.one/api/user/me ", {
             method: "GET",
@@ -629,18 +626,24 @@ socket.onerror = function(error) {
     alert(`[error]`);
 };
 (0, _htmlElement.htmlElement).exit.addEventListener("click", function() {
-    (0, _cookie.deleteCookie)("code");
-    (0, _cookie.deleteCookie)("myName");
-    (0, _cookie.deleteCookie)("myEmail");
+    clearCookie();
     location.reload();
 });
-(0, _htmlElement.htmlElement).inp.addEventListener("click", function(e) {
-    e.preventDefault();
+function openModalAndAddListener() {
+    (0, _htmlElement.htmlElement).modalEnter.classList.add("active");
+    (0, _htmlElement.htmlElement).enter.addEventListener("click", saveCodeCookie);
+}
+function saveCodeCookie(event) {
+    event.preventDefault();
+    let codeEnter;
+    if ((0, _htmlElement.htmlElement).codeEnter instanceof HTMLInputElement) codeEnter = (0, _htmlElement.htmlElement).codeEnter.value;
+    (0, _cookie.setCookie)("code", codeEnter);
+    (0, _htmlElement.htmlElement).modalEnter.classList.remove("active");
+    openModalChangeName();
+}
+function sendConfirmationCodeEmail() {
     if ((0, _htmlElement.htmlElement).email instanceof HTMLInputElement) (0, _cookie.setCookie)("myEmail", (0, _htmlElement.htmlElement).email.value);
-    if ((0, _htmlElement.htmlElement).inp instanceof HTMLButtonElement) {
-        console.log("disabled!");
-        (0, _htmlElement.htmlElement).inp.disabled = true;
-    }
+    if ((0, _htmlElement.htmlElement).getCodeButton instanceof HTMLButtonElement) (0, _htmlElement.htmlElement).getCodeButton.disabled = true;
     const email = {
         "email": (0, _cookie.getCookie)("myEmail")
     };
@@ -653,33 +656,22 @@ socket.onerror = function(error) {
         },
         body: strBody
     }).then((response)=>response.json()).then((obj)=>{
-        console.log(obj);
         (0, _htmlElement.htmlElement).modalSettingActive.classList.remove("active");
         (0, _htmlElement.htmlElement).modalAuth.classList.remove("active");
         (0, _htmlElement.htmlElement).modalEnter.classList.remove("active");
-        EntCode(e);
+        openModalAndAddListener();
+        console.log(obj);
     }).catch((error)=>alert(error));
-});
-// РАЗОБРАТЬСЯ С ФУНКЦИЯМИ!
-(0, _htmlElement.htmlElement).modalButtons.addEventListener("click", modalChangeName);
-for (let element of (0, _htmlElement.htmlElement).closeButtons)element.addEventListener("click", function(e) {
-    e.preventDefault();
-    (0, _htmlElement.htmlElement).modalSettingActive.classList.remove("active");
-    (0, _htmlElement.htmlElement).modalAuth.classList.remove("active");
-    (0, _htmlElement.htmlElement).modalEnter.classList.remove("active");
-});
-function modalChangeName() {
-    (0, _htmlElement.htmlElement).modalSettingActive.classList.add("active");
-    const inpName = document.querySelector(".inpName");
-    inpName.value = (0, _cookie.getCookie)("myName") || "";
 }
-const butName = (0, _htmlElement.htmlElement).butName;
-(0, _htmlElement.htmlElement).butName.addEventListener("click", entName);
-function entName(e) {
+function openModalChangeName() {
+    (0, _htmlElement.htmlElement).modalSettingActive.classList.add("active");
+    if ((0, _htmlElement.htmlElement).inpName instanceof HTMLInputElement) (0, _htmlElement.htmlElement).inpName.value = (0, _cookie.getCookie)("myName") || "";
+}
+function submitUserName(e) {
     e.preventDefault();
     let userName;
-    if (butName.previousSibling.previousSibling instanceof HTMLInputElement) userName = {
-        name: butName?.previousSibling?.previousSibling?.value
+    if ((0, _htmlElement.htmlElement).inpName instanceof HTMLInputElement) userName = {
+        name: (0, _htmlElement.htmlElement).inpName.value
     };
     const useNameJson = JSON.stringify(userName);
     fetch("https://edu.strada.one/api/user", {
@@ -691,29 +683,11 @@ function entName(e) {
         },
         body: useNameJson
     }).then((response)=>response.json()).then((obj)=>{
-        if (butName.previousSibling.previousSibling instanceof HTMLInputElement) (0, _cookie.setCookie)("myName", butName.previousSibling.previousSibling.value);
-        const modalSettingActive = document.querySelector(".modalSetting");
-        modalSettingActive.classList.remove("active");
-        console.log(obj.name);
+        if ((0, _htmlElement.htmlElement).butName.previousSibling.previousSibling instanceof HTMLInputElement) (0, _cookie.setCookie)("myName", (0, _htmlElement.htmlElement).butName.previousSibling.previousSibling.value);
+        (0, _htmlElement.htmlElement).modalSettingActive.classList.remove("active");
         location.reload();
     }).catch((error)=>console.log(error));
 }
-function EntCode(e) {
-    e.preventDefault();
-    console.log("\u0412\u044B\u043F\u043E\u043B\u043D\u0438\u043B\u0430\u0441\u044C \u0444\u0443\u043D\u043A\u0446\u0438\u044F EntCode");
-    (0, _htmlElement.htmlElement).modalEnter.classList.add("active");
-    const enter = document.querySelector(".enter");
-    enter.addEventListener("click", codeEnt);
-}
-function codeEnt(event) {
-    event.preventDefault();
-    let codeEnter;
-    if ((0, _htmlElement.htmlElement).codeEnter instanceof HTMLInputElement) codeEnter = (0, _htmlElement.htmlElement).codeEnter.value;
-    (0, _cookie.setCookie)("code", codeEnter);
-    (0, _htmlElement.htmlElement).modalEnter.classList.remove("active");
-    modalChangeName();
-}
-(0, _htmlElement.htmlElement).postBut.addEventListener("click", inpSendChatHandler);
 function inpSendChatHandler(e) {
     e.preventDefault();
     const message = (0, _htmlElement.htmlElement).postInp.value;
@@ -726,10 +700,26 @@ function inpSendChatHandler(e) {
     }));
     (0, _htmlElement.htmlElement).postInp.value = "";
 }
-(0, _htmlElement.htmlElement).window.addEventListener("scroll", mouseVisor);
 function mouseVisor() {
     if ((0, _htmlElement.htmlElement).window.scrollHeight - -(0, _htmlElement.htmlElement).window.scrollTop - (0, _htmlElement.htmlElement).window.clientHeight <= 0) (0, _render.renderChat)();
 }
+function clearCookie() {
+    (0, _cookie.deleteCookie)("myName");
+    (0, _cookie.deleteCookie)("myEmail");
+    (0, _cookie.deleteCookie)("code");
+}
+(0, _htmlElement.htmlElement).window.addEventListener("scroll", mouseVisor);
+(0, _htmlElement.htmlElement).postBut.addEventListener("click", inpSendChatHandler);
+(0, _htmlElement.htmlElement).getCodeButton.addEventListener("click", sendConfirmationCodeEmail);
+(0, _htmlElement.htmlElement).modalButtons.addEventListener("click", openModalChangeName);
+(0, _htmlElement.htmlElement).butName.addEventListener("click", submitUserName);
+for (let element of (0, _htmlElement.htmlElement).closeButtons)element.addEventListener("click", function(e) {
+    e.preventDefault();
+    (0, _htmlElement.htmlElement).modalSettingActive.classList.remove("active");
+    (0, _htmlElement.htmlElement).modalAuth.classList.remove("active");
+    (0, _htmlElement.htmlElement).modalEnter.classList.remove("active");
+    location.reload();
+});
 
 },{"../cookie":"7KFrp","./htmlElement":"cpdmS","./render":"1kFK5"}],"7KFrp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -799,12 +789,14 @@ parcelHelpers.export(exports, "htmlElement", ()=>htmlElement);
 const htmlElement = {
     butName: document.querySelector(".butName"),
     codeEnter: document.querySelector(".codeEnter"),
+    enter: document.querySelector(".enter"),
     temp: document.querySelector(".temp"),
     modalEnter: document.querySelector(".modalEnter"),
     modalAuth: document.querySelector(".modalAuth"),
     modalButtons: document.querySelector(".setting"),
     closeButtons: document.querySelectorAll(".modalCross"),
-    inp: document.querySelector(".code"),
+    inpName: document.querySelector(".inpName"),
+    getCodeButton: document.querySelector(".code"),
     email: document.querySelector(".codeInp"),
     modalSettingActive: document.querySelector(".modalSetting"),
     exit: document.querySelector(".exit"),
