@@ -27,7 +27,7 @@ export function renderChat() {
     }
 }
 
-export function renderMessage(email, name, message, oneMessage) {
+export function renderMessage(email: string, name: string, message: string, oneMessage: boolean) {
     const window = document.querySelector('.window');
     let temp = htmlElement.temp;
     let boolean = false;

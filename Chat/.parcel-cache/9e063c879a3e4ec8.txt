@@ -1,7 +1,7 @@
 5951
 94D:\Frontend\JavaScript\Chat\node_modules\@msgpackr-extract\msgpackr-extract-win32-x64\index.js133505669469701716 0
 65D:\Frontend\JavaScript\Chat\node_modules\css-what\lib\es\index.js133505669473297845 0
-33D:\Frontend\JavaScript\Chat\build133512717229514909 1
+33D:\Frontend\JavaScript\Chat\build133514604576405309 1
 69D:\Frontend\JavaScript\Chat\node_modules\type-fest\source\opaque.d.ts133505669477177798 0
 90D:\Frontend\JavaScript\Chat\node_modules\dom-serializer\node_modules\entities\lib\index.js133505669474130097 0
 37D:\Frontend\JavaScript\Chat\cookie.js133270833602980000 0
@@ -56,7 +56,7 @@
 58D:\Frontend\JavaScript\Chat\node_modules\lmdb\src\misc.cpp133505669480668193 0
 86D:\Frontend\JavaScript\Chat\node_modules\css-tree\lib\syntax\node\AttributeSelector.js133505669481965036 0
 129D:\Frontend\JavaScript\Chat\node_modules\@parcel\optimizer-htmlnano\node_modules\css-select\lib\pseudo-selectors\pseudos.d.ts.map133505669477075005 0
-32D:\Frontend\JavaScript\Chat\dist133512867199682741 1
+32D:\Frontend\JavaScript\Chat\dist133514625781708277 1
 85D:\Frontend\JavaScript\Chat\node_modules\@babel\code-frame\node_modules\chalk\license133505669473266739 0
 94D:\Frontend\JavaScript\Chat\node_modules\csso\node_modules\css-tree\lib\syntax\pseudo\index.js133505669482855036 0
 45D:\Frontend\JavaScript\Chat\node_modules\lmdb133505669482264981 1
@@ -69,21 +69,6 @@
 72D:\Frontend\JavaScript\Chat\node_modules\caniuse-lite\data\regions\PE.js133505669487575587 0
 115D:\Frontend\JavaScript\Chat\node_modules\@parcel\optimizer-svgo\node_modules\svgo\plugins\addClassesToSVGElement.js133505669475174895 0
 49D:\Frontend\JavaScript\Chat\node_modules\get-port133505669473582390 1
-45D:\Frontend\JavaScript\Chat\node_modules\.bin133505669490386382 1
-69D:\Frontend\JavaScript\Chat\node_modules\posthtml-parser\package.json133505669474015889 0
-75D:\Frontend\JavaScript\Chat\node_modules\caniuse-lite\data\features\flac.js133505669484567814 0
-86D:\Frontend\JavaScript\Chat\node_modules\@swc\helpers\_\_write_only_error\package.json133505669487053315 0
-92D:\Frontend\JavaScript\Chat\node_modules\@babel\helper-validator-identifier\lib\index.js.map133505669474386792 0
-87D:\Frontend\JavaScript\Chat\node_modules\@parcel\core\test\fixtures\application-targets133505669482845014 1
-73D:\Frontend\JavaScript\Chat\node_modules\react-error-overlay\lib\index.js133505669474666156 0
-76D:\Frontend\JavaScript\Chat\node_modules\@parcel\compressor-raw\package.json133505669473465942 0
-79D:\Frontend\JavaScript\Chat\node_modules\csso\cjs\replace\AttributeSelector.cjs133505669475707177 0
-62D:\Frontend\JavaScript\Chat\node_modules\semver\internal\re.js133505669478112817 0
-70D:\Frontend\JavaScript\Chat\node_modules\css-tree\cjs\syntax\index.cjs133505669479700768 0
-59D:\Frontend\JavaScript\Chat\node_modules\@parcel\graph\test133505669476109114 1
-73D:\Frontend\JavaScript\Chat\node_modules\node-gyp-build-optional-packages133505669474466340 1
-68D:\Frontend\JavaScript\Chat\node_modules\css-tree\lib\lexer\trace.js133505669483668375 0
-32D:\Frontend\JavaScript\Chat\task133511091142629959 0
 59D:\Frontend\JavaScript\Chat\node_modules\json5\package.json133505669475707177 0
 89D:\Frontend\JavaScript\Chat\node_modules\@parcel\optimizer-htmlnano\node_modules\csso\lib133505669478666498 1
 66D:\Frontend\JavaScript\Chat\node_modules\csso\lib\replace\Value.js133505669480668193 0
@@ -110,7 +95,7 @@
 110D:\Frontend\JavaScript\Chat\node_modules\@parcel\optimizer-svgo\node_modules\css-select\lib\procedure.d.ts.map133505669476966100 0
 77D:\Frontend\JavaScript\Chat\node_modules\csso\node_modules\css-tree\lib\lexer133505669483474968 1
 77D:\Frontend\JavaScript\Chat\node_modules\@parcel\bundler-default\package.json133505669474431285 0
-44D:\Frontend\JavaScript\Chat\ts\changeName.ts133512813017014440 0
+44D:\Frontend\JavaScript\Chat\ts\changeName.ts133514626795242227 0
 77D:\Frontend\JavaScript\Chat\node_modules\svgo\plugins\removeOffCanvasPaths.js133505669479964919 0
 69D:\Frontend\JavaScript\Chat\node_modules\@parcel\workers\src\child.js133505669474666156 0
 45D:\Frontend\JavaScript\Chat\ts\htmlElement.ts133512744123051836 0
@@ -118,7 +103,7 @@
 66D:\Frontend\JavaScript\Chat\node_modules\htmlnano\lib\htmlnano.cjs133505669475485006 0
 110D:\Frontend\JavaScript\Chat\node_modules\@parcel\optimizer-svgo\node_modules\css-tree\lib\syntax\pseudo\has.js133505669479269459 0
 60D:\Frontend\JavaScript\Chat\node_modules\js-yaml\lib\type.js133505669477764589 0
-38D:\Frontend\JavaScript\Chat\ts\main.ts133512867726400937 0
+38D:\Frontend\JavaScript\Chat\ts\main.ts133514625781391684 0
 87D:\Frontend\JavaScript\Chat\node_modules\csso\node_modules\css-tree\lib\syntax\index.js133505669482825011 0
 61D:\Frontend\JavaScript\Chat\node_modules\csso\cjs\restructure133505669478268050 1
 65D:\Frontend\JavaScript\Chat\node_modules\cosmiconfig\dist\util.js133505669474890394 0
@@ -128,7 +113,18 @@
 70D:\Frontend\JavaScript\Chat\node_modules\react-refresh\build-info.json133505669474969070 0
 90D:\Frontend\JavaScript\Chat\node_modules\css-select\node_modules\domutils\lib\helpers.d.ts133505669479091968 0
 70D:\Frontend\JavaScript\Chat\node_modules\@swc\helpers\esm\_decorate.js133505669481666556 0
-40D:\Frontend\JavaScript\Chat\ts\render.ts133511128563587795 0
+40D:\Frontend\JavaScript\Chat\ts\render.ts133514622206584651 0
+45D:\Frontend\JavaScript\Chat\node_modules\.bin133505669490386382 1
+69D:\Frontend\JavaScript\Chat\node_modules\posthtml-parser\package.json133505669474015889 0
+75D:\Frontend\JavaScript\Chat\node_modules\caniuse-lite\data\features\flac.js133505669484567814 0
+86D:\Frontend\JavaScript\Chat\node_modules\@swc\helpers\_\_write_only_error\package.json133505669487053315 0
+92D:\Frontend\JavaScript\Chat\node_modules\@babel\helper-validator-identifier\lib\index.js.map133505669474386792 0
+87D:\Frontend\JavaScript\Chat\node_modules\@parcel\core\test\fixtures\application-targets133505669482845014 1
+73D:\Frontend\JavaScript\Chat\node_modules\react-error-overlay\lib\index.js133505669474666156 0
+76D:\Frontend\JavaScript\Chat\node_modules\@parcel\compressor-raw\package.json133505669473465942 0
+79D:\Frontend\JavaScript\Chat\node_modules\csso\cjs\replace\AttributeSelector.cjs133505669475707177 0
+62D:\Frontend\JavaScript\Chat\node_modules\semver\internal\re.js133505669478112817 0
+70D:\Frontend\JavaScript\Chat\node_modules\css-tree\cjs\syntax\index.cjs133505669479700768 0
 55D:\Frontend\JavaScript\Chat\node_modules\lmdb\README.md133505669482165576 0
 47D:\Frontend\JavaScript\Chat\node_modules\@babel133505669458468312 1
 78D:\Frontend\JavaScript\Chat\node_modules\@swc\helpers\esm\_write_only_error.js133505669485493781 0
@@ -328,6 +324,8 @@
 97D:\Frontend\JavaScript\Chat\node_modules\abortcontroller-polyfill\src\abortcontroller-polyfill.js133505669473555446 0
 92D:\Frontend\JavaScript\Chat\node_modules\htmlnano\lib\modules\deduplicateAttributeValues.mjs133505669480168048 0
 61D:\Frontend\JavaScript\Chat\node_modules\escape-string-regexp133505669473031688 1
+55D:\Frontend\JavaScript\Chat\node_modules\type-fest\ts41133505669478038267 1
+49D:\Frontend\JavaScript\Chat\node_modules\has-flag133505669473465942 1
 83D:\Frontend\JavaScript\Chat\node_modules\css-tree\lib\syntax\node\MediaQueryList.js133505669483169781 0
 98D:\Frontend\JavaScript\Chat\node_modules\csso\node_modules\css-tree\lib\syntax\node\index-parse.js133505669482665806 0
 130D:\Frontend\JavaScript\Chat\node_modules\@parcel\optimizer-htmlnano\node_modules\css-tree\lib\syntax\pseudo\common\selectorList.js133505669481172344 0
@@ -338,8 +336,6 @@
 84D:\Frontend\JavaScript\Chat\node_modules\lmdb\node_modules\node-addon-api\LICENSE.md133505669476758693 0
 55D:\Frontend\JavaScript\Chat\node_modules\ordered-binary133505669475868371 1
 67D:\Frontend\JavaScript\Chat\node_modules\ordered-binary\.nyc_output133505669474969070 1
-55D:\Frontend\JavaScript\Chat\node_modules\type-fest\ts41133505669478038267 1
-49D:\Frontend\JavaScript\Chat\node_modules\has-flag133505669473465942 1
 68D:\Frontend\JavaScript\Chat\node_modules\node-addon-api\node_api.gyp133505669472666879 0
 74D:\Frontend\JavaScript\Chat\node_modules\type-fest\source\stringified.d.ts133505669478112817 0
 86D:\Frontend\JavaScript\Chat\node_modules\csso\node_modules\css-tree\lib\utils\names.js133505669483065195 0
@@ -457,6 +453,9 @@
 64D:\Frontend\JavaScript\Chat\node_modules\strip-ansi\package.json133505669472666879 0
 55D:\Frontend\JavaScript\Chat\node_modules\node-addon-api133505669476966100 1
 93D:\Frontend\JavaScript\Chat\node_modules\dom-serializer\node_modules\entities\lib\decode.d.ts133505669476266059 0
+59D:\Frontend\JavaScript\Chat\node_modules\@parcel\graph\test133505669476109114 1
+73D:\Frontend\JavaScript\Chat\node_modules\node-gyp-build-optional-packages133505669474466340 1
+68D:\Frontend\JavaScript\Chat\node_modules\css-tree\lib\lexer\trace.js133505669483668375 0
 60D:\Frontend\JavaScript\Chat\node_modules\@parcel\logger\test133505669473465942 1
 64D:\Frontend\JavaScript\Chat\node_modules\escalade\sync\index.mjs133505669474643906 0
 75D:\Frontend\JavaScript\Chat\node_modules\caniuse-lite\data\features\colr.js133505669481158960 0
@@ -1191,6 +1190,7 @@
 76D:\Frontend\JavaScript\Chat\node_modules\svgo\plugins\removeScriptElement.js133505669480097999 0
 71D:\Frontend\JavaScript\Chat\node_modules\svgo\plugins\removeUnusedNS.js133505669480265940 0
 71D:\Frontend\JavaScript\Chat\node_modules\nth-check\lib\esm\parse.js.map133505669476568366 0
+78D:\Frontend\JavaScript\Chat\node_modules\css-tree\cjs\syntax\node\Brackets.cjs133505669475485006 0
 101D:\Frontend\JavaScript\Chat\node_modules\@swc\helpers\cjs\_class_static_private_field_destructure.cjs133505669477704541 0
 74D:\Frontend\JavaScript\Chat\node_modules\svgo\plugins\removeUselessDefs.js133505669480265940 0
 87D:\Frontend\JavaScript\Chat\node_modules\css-tree\cjs\syntax\node\AttributeSelector.cjs133505669475174895 0
@@ -3025,7 +3025,7 @@
 78D:\Frontend\JavaScript\Chat\node_modules\caniuse-lite\data\features\dataset.js133505669483822388 0
 91D:\Frontend\JavaScript\Chat\node_modules\csso\node_modules\css-tree\lib\generator\create.js133505669482088487 0
 59D:\Frontend\JavaScript\Chat\node_modules\css-tree\README.md133505669483892343 0
-50D:\Frontend\JavaScript\Chat\dist\index.a2a37aa4.js133512867199344051 0
+50D:\Frontend\JavaScript\Chat\dist\index.a2a37aa4.js133514625781656957 0
 81D:\Frontend\JavaScript\Chat\node_modules\@parcel\core\test\PackagerRunner.test.js133505669481080258 0
 91D:\Frontend\JavaScript\Chat\node_modules\csso\node_modules\css-tree\cjs\tokenizer\index.cjs133505669479666675 0
 90D:\Frontend\JavaScript\Chat\node_modules\csso\node_modules\css-tree\lib\generator\index.js133505669482768342 0
@@ -3377,7 +3377,6 @@
 76D:\Frontend\JavaScript\Chat\node_modules\css-tree\cjs\syntax\node\Atrule.cjs133505669474055929 0
 98D:\Frontend\JavaScript\Chat\node_modules\@swc\helpers\src\_create_for_of_iterator_helper_loose.mjs133505669487368659 0
 75D:\Frontend\JavaScript\Chat\node_modules\css-tree\cjs\syntax\node\Block.cjs133505669475324301 0
-78D:\Frontend\JavaScript\Chat\node_modules\css-tree\cjs\syntax\node\Brackets.cjs133505669475485006 0
 73D:\Frontend\JavaScript\Chat\node_modules\css-tree\cjs\syntax\node\CDC.cjs133505669475578030 0
 79D:\Frontend\JavaScript\Chat\node_modules\caniuse-lite\data\features\css-sel3.js133505669483303983 0
 83D:\Frontend\JavaScript\Chat\node_modules\css-tree\cjs\syntax\node\ClassSelector.cjs133505669475993986 0
@@ -3398,7 +3397,7 @@
 80D:\Frontend\JavaScript\Chat\node_modules\css-tree\cjs\syntax\node\IdSelector.cjs133505669479171303 0
 90D:\Frontend\JavaScript\Chat\node_modules\css-tree\cjs\syntax\node\index-parse-selector.cjs133505669479306945 0
 84D:\Frontend\JavaScript\Chat\node_modules\css-tree\cjs\syntax\node\MediaCondition.cjs133505669480168048 0
-43D:\Frontend\JavaScript\Chat\build\render.js133512744210443494 0
+43D:\Frontend\JavaScript\Chat\build\render.js133514622336391649 0
 80D:\Frontend\JavaScript\Chat\node_modules\css-tree\cjs\syntax\node\MediaQuery.cjs133505669480265940 0
 76D:\Frontend\JavaScript\Chat\node_modules\css-tree\cjs\syntax\node\Number.cjs133505669480607670 0
 94D:\Frontend\JavaScript\Chat\node_modules\@swc\helpers\cjs\_object_without_properties_loose.cjs133505669479574158 0
@@ -5944,9 +5943,10 @@
 52D:\Frontend\JavaScript\Chat\node_modules\.bin\semver133505669490402769 0
 56D:\Frontend\JavaScript\Chat\node_modules\.bin\semver.cmd133505669490402769 0
 50D:\Frontend\JavaScript\Chat\node_modules\.bin\svgo133505669490402769 0
-51D:\Frontend\JavaScript\Chat\dist\index.3a01df49.css133512867199355251 0
-55D:\Frontend\JavaScript\Chat\dist\index.3a01df49.css.map133512867199375258 0
-54D:\Frontend\JavaScript\Chat\dist\index.a2a37aa4.js.map133512867199375258 0
-43D:\Frontend\JavaScript\Chat\dist\index.html133512867199682741 0
-48D:\Frontend\JavaScript\Chat\build\htmlElement.js133512744210388235 0
-41D:\Frontend\JavaScript\Chat\build\main.js133512744210538681 0
+51D:\Frontend\JavaScript\Chat\dist\index.3a01df49.css133514623432236212 0
+55D:\Frontend\JavaScript\Chat\dist\index.3a01df49.css.map133514623432280932 0
+54D:\Frontend\JavaScript\Chat\dist\index.a2a37aa4.js.map133514625781698265 0
+43D:\Frontend\JavaScript\Chat\dist\index.html133514623432755251 0
+47D:\Frontend\JavaScript\Chat\build\changeName.js133514622336353902 0
+48D:\Frontend\JavaScript\Chat\build\htmlElement.js133514622336253876 0
+41D:\Frontend\JavaScript\Chat\build\main.js133514622336533155 0

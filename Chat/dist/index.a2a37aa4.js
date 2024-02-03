@@ -582,10 +582,11 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 var _cookie = require("../cookie");
 var _htmlElement = require("./htmlElement");
 var _render = require("./render");
-// let tempCode = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlbnJlazg4QHlhbmRleC5ydSIsImlhdCI6MTcwNjYyMzEzNiwiZXhwIjoxNzEwMjE5NTM2fQ.Q61M4ini8HXAft_x4w3SKjZCmCMrMfMbP0cLCnjVbBY'
-const code = (0, _cookie.getCookie)("code");
+var _changeName = require("./changeName");
+let tempCode = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlbnJlazg4QHlhbmRleC5ydSIsImlhdCI6MTcwNjYyMzEzNiwiZXhwIjoxNzEwMjE5NTM2fQ.Q61M4ini8HXAft_x4w3SKjZCmCMrMfMbP0cLCnjVbBY";
+const code = tempCode || (0, _cookie.getCookie)("code");
 let socket = new WebSocket(`wss://edu.strada.one/websockets?${code}`);
-socket.onopen = function(e) {
+socket.onopen = function() {
     if (!code) {
         (0, _htmlElement.htmlElement).modalAuth.classList.add("active");
         clearCookie();
@@ -599,7 +600,7 @@ socket.onopen = function(e) {
             localStorage.setItem("message", JSON.stringify(obj));
             mouseVisor();
         }).catch((error)=>{
-            console.log(error);
+            alert(error);
             clearCookie();
         });
         fetch("https://edu.strada.one/api/user/me ", {
@@ -620,10 +621,10 @@ socket.onmessage = function(event) {
 };
 socket.onclose = function(event) {
     if (event.wasClean) alert(`[close] \u{421}\u{43E}\u{435}\u{434}\u{438}\u{43D}\u{435}\u{43D}\u{438}\u{435} \u{437}\u{430}\u{43A}\u{440}\u{44B}\u{442}\u{43E} \u{447}\u{438}\u{441}\u{442}\u{43E}, \u{43A}\u{43E}\u{434}=${event.code} \u{43F}\u{440}\u{438}\u{447}\u{438}\u{43D}\u{430}=${event.reason}`);
-    else console.log("[close] \u0421\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u0435 \u043F\u0440\u0435\u0440\u0432\u0430\u043D\u043E");
+    else alert("[close] \u0421\u043E\u0435\u0434\u0438\u043D\u0435\u043D\u0438\u0435 \u043F\u0440\u0435\u0440\u0432\u0430\u043D\u043E");
 };
 socket.onerror = function(error) {
-    alert(`[error]`);
+    alert(error);
 };
 (0, _htmlElement.htmlElement).exit.addEventListener("click", function() {
     clearCookie();
@@ -633,13 +634,13 @@ function openModalAndAddListener() {
     (0, _htmlElement.htmlElement).modalEnter.classList.add("active");
     (0, _htmlElement.htmlElement).enter.addEventListener("click", saveCodeCookie);
 }
-function saveCodeCookie(event) {
-    event.preventDefault();
+function saveCodeCookie(e) {
+    e.preventDefault();
     let codeEnter;
     if ((0, _htmlElement.htmlElement).codeEnter instanceof HTMLInputElement) codeEnter = (0, _htmlElement.htmlElement).codeEnter.value;
     (0, _cookie.setCookie)("code", codeEnter);
     (0, _htmlElement.htmlElement).modalEnter.classList.remove("active");
-    openModalChangeName();
+    (0, _changeName.openModalChangeName)();
 }
 function sendConfirmationCodeEmail() {
     if ((0, _htmlElement.htmlElement).email instanceof HTMLInputElement) (0, _cookie.setCookie)("myEmail", (0, _htmlElement.htmlElement).email.value);
@@ -660,33 +661,7 @@ function sendConfirmationCodeEmail() {
         (0, _htmlElement.htmlElement).modalAuth.classList.remove("active");
         (0, _htmlElement.htmlElement).modalEnter.classList.remove("active");
         openModalAndAddListener();
-        console.log(obj);
     }).catch((error)=>alert(error));
-}
-function openModalChangeName() {
-    (0, _htmlElement.htmlElement).modalSettingActive.classList.add("active");
-    if ((0, _htmlElement.htmlElement).inpName instanceof HTMLInputElement) (0, _htmlElement.htmlElement).inpName.value = (0, _cookie.getCookie)("myName") || "";
-}
-function submitUserName(e) {
-    e.preventDefault();
-    let userName;
-    if ((0, _htmlElement.htmlElement).inpName instanceof HTMLInputElement) userName = {
-        name: (0, _htmlElement.htmlElement).inpName.value
-    };
-    const useNameJson = JSON.stringify(userName);
-    fetch("https://edu.strada.one/api/user", {
-        method: "PATCH",
-        headers: {
-            "Authorization": `Bearer ${(0, _cookie.getCookie)("code")}`,
-            "Accept": "application/json",
-            "Content-Type": "application/json;charset=utf-8"
-        },
-        body: useNameJson
-    }).then((response)=>response.json()).then((obj)=>{
-        if ((0, _htmlElement.htmlElement).butName.previousSibling.previousSibling instanceof HTMLInputElement) (0, _cookie.setCookie)("myName", (0, _htmlElement.htmlElement).butName.previousSibling.previousSibling.value);
-        (0, _htmlElement.htmlElement).modalSettingActive.classList.remove("active");
-        location.reload();
-    }).catch((error)=>console.log(error));
 }
 function inpSendChatHandler(e) {
     e.preventDefault();
@@ -711,8 +686,8 @@ function clearCookie() {
 (0, _htmlElement.htmlElement).window.addEventListener("scroll", mouseVisor);
 (0, _htmlElement.htmlElement).postBut.addEventListener("click", inpSendChatHandler);
 (0, _htmlElement.htmlElement).getCodeButton.addEventListener("click", sendConfirmationCodeEmail);
-(0, _htmlElement.htmlElement).modalButtons.addEventListener("click", openModalChangeName);
-(0, _htmlElement.htmlElement).butName.addEventListener("click", submitUserName);
+(0, _htmlElement.htmlElement).modalButtons.addEventListener("click", (0, _changeName.openModalChangeName));
+(0, _htmlElement.htmlElement).butName.addEventListener("click", (0, _changeName.submitUserName));
 for (let element of (0, _htmlElement.htmlElement).closeButtons)element.addEventListener("click", function(e) {
     e.preventDefault();
     (0, _htmlElement.htmlElement).modalSettingActive.classList.remove("active");
@@ -721,7 +696,7 @@ for (let element of (0, _htmlElement.htmlElement).closeButtons)element.addEventL
     location.reload();
 });
 
-},{"../cookie":"7KFrp","./htmlElement":"cpdmS","./render":"1kFK5"}],"7KFrp":[function(require,module,exports) {
+},{"../cookie":"7KFrp","./htmlElement":"cpdmS","./render":"1kFK5","./changeName":"eHrQ3"}],"7KFrp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getCookie", ()=>getCookie);
@@ -842,6 +817,39 @@ function renderMessage(email, name, message, oneMessage) {
     elem.querySelector(".text").innerHTML = `${name}: ${message}`;
     if (oneMessage) window.prepend(elem);
     else window.append(elem);
+}
+
+},{"./htmlElement":"cpdmS","../cookie":"7KFrp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eHrQ3":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "openModalChangeName", ()=>openModalChangeName);
+parcelHelpers.export(exports, "submitUserName", ()=>submitUserName);
+var _htmlElement = require("./htmlElement");
+var _cookie = require("../cookie");
+function openModalChangeName() {
+    (0, _htmlElement.htmlElement).modalSettingActive.classList.add("active");
+    if ((0, _htmlElement.htmlElement).inpName instanceof HTMLInputElement) (0, _htmlElement.htmlElement).inpName.value = (0, _cookie.getCookie)("myName") || "";
+}
+function submitUserName(e) {
+    e.preventDefault();
+    let userName;
+    if ((0, _htmlElement.htmlElement).inpName instanceof HTMLInputElement) userName = {
+        name: (0, _htmlElement.htmlElement).inpName.value
+    };
+    const useNameJson = JSON.stringify(userName);
+    fetch("https://edu.strada.one/api/user", {
+        method: "PATCH",
+        headers: {
+            "Authorization": `Bearer ${(0, _cookie.getCookie)("code")}`,
+            "Accept": "application/json",
+            "Content-Type": "application/json;charset=utf-8"
+        },
+        body: useNameJson
+    }).then((response)=>response.json()).then((obj)=>{
+        if ((0, _htmlElement.htmlElement).butName.previousSibling.previousSibling instanceof HTMLInputElement) (0, _cookie.setCookie)("myName", (0, _htmlElement.htmlElement).butName.previousSibling.previousSibling.value);
+        (0, _htmlElement.htmlElement).modalSettingActive.classList.remove("active");
+        location.reload();
+    }).catch((error)=>alert(error));
 }
 
 },{"./htmlElement":"cpdmS","../cookie":"7KFrp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["5qqEh","3rz9v"], "3rz9v", "parcelRequire94c2")
