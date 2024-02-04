@@ -1,5 +1,5 @@
 export const htmlElement = {
-    butName: document.querySelector('.butName'),
+    butName: document.querySelector('.butName') ,
     codeEnter: document.querySelector('.codeEnter'),
     enter: document.querySelector('.enter'),
     temp: document.querySelector('.temp'),
@@ -7,6 +7,7 @@ export const htmlElement = {
     modalAuth: document.querySelector('.modalAuth'),
     modalButtons : document.querySelector('.setting'),
     closeButtons : document.querySelectorAll('.modalCross'),
+    darkModeButton: document.querySelector('.darkModeButton'),
     inpName: document.querySelector('.inpName'),
     getCodeButton : document.querySelector('.code'),
     email: document.querySelector('.codeInp'),
@@ -16,5 +17,7 @@ export const htmlElement = {
     postBut: document.querySelector('.post').querySelector('button'),
     postInp: document.querySelector('.post').querySelector('input'),
 
+ 
 }
+
 

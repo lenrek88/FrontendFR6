@@ -32,6 +32,6 @@ function submitUserName(e) {
         htmlElement_1.htmlElement.modalSettingActive.classList.remove('active');
         location.reload();
     })
-        .catch(error => console.log(error));
+        .catch(error => alert(error));
 }
 exports.submitUserName = submitUserName;

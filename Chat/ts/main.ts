@@ -4,6 +4,7 @@ import { renderChat } from "./render";
 import { renderMessage } from "./render";
 import { openModalChangeName } from "./changeName";
 import { submitUserName } from "./changeName";
+import { darkModeButtonHandler } from "./darkMode"
 
 let tempCode = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlbnJlazg4QHlhbmRleC5ydSIsImlhdCI6MTcwNjYyMzEzNiwiZXhwIjoxNzEwMjE5NTM2fQ.Q61M4ini8HXAft_x4w3SKjZCmCMrMfMbP0cLCnjVbBY'
 const code = tempCode || getCookie('code');
@@ -25,6 +26,7 @@ socket.onopen = function() {
                         mouseVisor();
                 })
                 .catch(error => {
+                        console.log(error);
                         alert(error);
                         clearCookie();
                     }
@@ -53,11 +55,12 @@ type itemMessageObject = {
 type MessageObject = {
     user: itemMessageObject;
     text: string;
+    createdAt: string;
 }
 
 socket.onmessage = function(event) {
     const thisMessage: MessageObject = JSON.parse(event.data);
-    renderMessage(thisMessage.user.email, thisMessage.user.name, thisMessage.text, true);
+    renderMessage(thisMessage.user.email, thisMessage.user.name, thisMessage.text, thisMessage.createdAt, true);
 };
 
 socket.onclose = function(event) {
@@ -151,6 +154,7 @@ htmlElement.postBut.addEventListener('click', inpSendChatHandler);
 htmlElement.getCodeButton.addEventListener('click', sendConfirmationCodeEmail);
 htmlElement.modalButtons.addEventListener('click', openModalChangeName); 
 htmlElement.butName.addEventListener('click', submitUserName);
+htmlElement.darkModeButton.addEventListener('click', darkModeButtonHandler)
 
 for (let element of htmlElement.closeButtons) {
         element.addEventListener('click', function (e){

@@ -6,8 +6,13 @@ body {
   background: gray;
 }
 
+body[data-darkmode="night"] {
+  color: #fff;
+  background-color: #1b1b1b;
+}
+
 .chat {
-  background: #fff;
+  background-color: #fff;
   border: 1px solid #000;
   grid-template-rows: 39px 445px 48px;
   grid-template-columns: 98px 140px 66px;
@@ -16,6 +21,12 @@ body {
   margin: 200px auto;
   padding: 8px;
   display: grid;
+}
+
+.chat[data-darkmode="night"] {
+  color: #fff;
+  background-color: #1b1b1b;
+  border: 1px solid gray;
 }
 
 .setting {
@@ -28,6 +39,11 @@ body {
   line-height: 19px;
 }
 
+.setting[data-darkmode="night"] {
+  color: #fff;
+  background-color: #333;
+}
+
 .exit {
   background: #fff;
   border: 1px solid #000;
@@ -36,6 +52,11 @@ body {
   height: 32px;
   font-size: 16px;
   line-height: 19px;
+}
+
+.exit[data-darkmode="night"] {
+  color: #fff;
+  background-color: #333;
 }
 
 .wrapper {
@@ -49,6 +70,7 @@ body {
 }
 
 .window {
+  color: #000;
   background: #fff;
   flex-direction: column-reverse;
   justify-content: flex-end;
@@ -57,10 +79,20 @@ body {
   display: flex;
 }
 
+.window[data-darkmode="night"] {
+  color: #fff;
+  background-color: #1b1b1b;
+}
+
 .post {
   grid-area: 3 / 1;
   width: 304px;
   height: 32px;
+}
+
+.post[data-darkmode="night"] {
+  color: #383838;
+  background: #383838;
 }
 
 .post form {
@@ -78,6 +110,11 @@ body {
   line-height: 19px;
 }
 
+.post input[data-darkmode="night"] {
+  color: #fff;
+  background: #383838;
+}
+
 .post button {
   color: #000;
   background: #fff;
@@ -89,15 +126,30 @@ body {
   margin-right: 0;
 }
 
+.post button[data-darkmode="night"] {
+  color: #fff;
+  background: #383838;
+}
+
 .me {
   background: #e5e5e5;
   margin: 8px 0 0 8px;
 }
 
+.me[data-darkmode="night"] {
+  color: #fff;
+  background-color: #383838 !important;
+}
+
 .to {
-  background: #e5e5e5;
+  background-color: #e5e5e5;
   align-self: flex-start;
   margin: 8px 8px 0 0;
+}
+
+.to[data-darkmode="night"] {
+  color: #fff;
+  background-color: #383838 !important;
 }
 
 .time {
@@ -109,6 +161,11 @@ body {
   font-style: italic;
   font-weight: 300;
   line-height: 16px;
+}
+
+.time[data-darkmode="night"] {
+  color: #fff;
+  background-color: #383838;
 }
 
 .text {
@@ -131,6 +188,11 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 0 3px 10px -.5px #0003;
+}
+
+.modalSetting[data-darkmode="night"], .modalAuth[data-darkmode="night"], .modalEnter[data-darkmode="night"] {
+  color: #fff;
+  background-color: #1b1b1b;
 }
 
 .overlay {
@@ -177,6 +239,11 @@ body {
   line-height: 19px;
 }
 
+.modalSetting input[data-darkmode="night"], .modalEnter input[data-darkmode="night"], .modalAuth input[data-darkmode="night"] {
+  color: #fff;
+  background-color: #333;
+}
+
 .modalSetting button, .modalEnter button, .modalAuth button {
   color: #000;
   background: #fff;
@@ -185,6 +252,19 @@ body {
   height: 32px;
   margin-left: auto;
   margin-right: 0;
+}
+
+.modalSetting button[data-darkmode="night"], .modalEnter button[data-darkmode="night"], .modalAuth button[data-darkmode="night"] {
+  color: #fff;
+  background-color: #333;
+}
+
+.darkModeButton {
+  position: absolute;
+  top: 120px;
+  left: 14px;
+  width: 100px !important;
+  height: 32px !important;
 }
 
 .modalEnter button {

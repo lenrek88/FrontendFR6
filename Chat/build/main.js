@@ -6,6 +6,7 @@ const render_1 = require("./render");
 const render_2 = require("./render");
 const changeName_1 = require("./changeName");
 const changeName_2 = require("./changeName");
+const darkMode_1 = require("./darkMode");
 let tempCode = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlbnJlazg4QHlhbmRleC5ydSIsImlhdCI6MTcwNjYyMzEzNiwiZXhwIjoxNzEwMjE5NTM2fQ.Q61M4ini8HXAft_x4w3SKjZCmCMrMfMbP0cLCnjVbBY';
 const code = tempCode || (0, cookie_1.getCookie)('code');
 let socket = new WebSocket(`wss://edu.strada.one/websockets?${code}`);
@@ -27,6 +28,7 @@ socket.onopen = function () {
         })
             .catch(error => {
             console.log(error);
+            alert(error);
             clearCookie();
         });
         fetch('https://edu.strada.one/api/user/me ', {
@@ -45,18 +47,18 @@ socket.onopen = function () {
 };
 socket.onmessage = function (event) {
     const thisMessage = JSON.parse(event.data);
-    (0, render_2.renderMessage)(thisMessage.user.email, thisMessage.user.name, thisMessage.text, true);
+    (0, render_2.renderMessage)(thisMessage.user.email, thisMessage.user.name, thisMessage.text, thisMessage.createdAt, true);
 };
 socket.onclose = function (event) {
     if (event.wasClean) {
         alert(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
     }
     else {
-        console.log('[close] Соединение прервано');
+        alert('[close] Соединение прервано');
     }
 };
 socket.onerror = function (error) {
-    alert(`[error]`);
+    alert(error);
 };
 htmlElement_1.htmlElement.exit.addEventListener('click', function () {
     clearCookie();
@@ -66,8 +68,8 @@ function openModalAndAddListener() {
     htmlElement_1.htmlElement.modalEnter.classList.add('active');
     htmlElement_1.htmlElement.enter.addEventListener('click', saveCodeCookie);
 }
-function saveCodeCookie(event) {
-    event.preventDefault();
+function saveCodeCookie(e) {
+    e.preventDefault();
     let codeEnter;
     if (htmlElement_1.htmlElement.codeEnter instanceof HTMLInputElement) {
         codeEnter = htmlElement_1.htmlElement.codeEnter.value;
@@ -98,7 +100,6 @@ function sendConfirmationCodeEmail() {
         htmlElement_1.htmlElement.modalAuth.classList.remove('active');
         htmlElement_1.htmlElement.modalEnter.classList.remove('active');
         openModalAndAddListener();
-        console.log(obj);
     })
         .catch(error => alert(error));
 }
@@ -127,6 +128,7 @@ htmlElement_1.htmlElement.postBut.addEventListener('click', inpSendChatHandler);
 htmlElement_1.htmlElement.getCodeButton.addEventListener('click', sendConfirmationCodeEmail);
 htmlElement_1.htmlElement.modalButtons.addEventListener('click', changeName_1.openModalChangeName);
 htmlElement_1.htmlElement.butName.addEventListener('click', changeName_2.submitUserName);
+htmlElement_1.htmlElement.darkModeButton.addEventListener('click', darkMode_1.darkModeButtonHandler);
 for (let element of htmlElement_1.htmlElement.closeButtons) {
     element.addEventListener('click', function (e) {
         e.preventDefault();

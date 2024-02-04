@@ -583,6 +583,7 @@ var _cookie = require("../cookie");
 var _htmlElement = require("./htmlElement");
 var _render = require("./render");
 var _changeName = require("./changeName");
+var _darkMode = require("./darkMode");
 let tempCode = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlbnJlazg4QHlhbmRleC5ydSIsImlhdCI6MTcwNjYyMzEzNiwiZXhwIjoxNzEwMjE5NTM2fQ.Q61M4ini8HXAft_x4w3SKjZCmCMrMfMbP0cLCnjVbBY";
 const code = tempCode || (0, _cookie.getCookie)("code");
 let socket = new WebSocket(`wss://edu.strada.one/websockets?${code}`);
@@ -600,6 +601,7 @@ socket.onopen = function() {
             localStorage.setItem("message", JSON.stringify(obj));
             mouseVisor();
         }).catch((error)=>{
+            console.log(error);
             alert(error);
             clearCookie();
         });
@@ -617,7 +619,7 @@ socket.onopen = function() {
 };
 socket.onmessage = function(event) {
     const thisMessage = JSON.parse(event.data);
-    (0, _render.renderMessage)(thisMessage.user.email, thisMessage.user.name, thisMessage.text, true);
+    (0, _render.renderMessage)(thisMessage.user.email, thisMessage.user.name, thisMessage.text, thisMessage.createdAt, true);
 };
 socket.onclose = function(event) {
     if (event.wasClean) alert(`[close] \u{421}\u{43E}\u{435}\u{434}\u{438}\u{43D}\u{435}\u{43D}\u{438}\u{435} \u{437}\u{430}\u{43A}\u{440}\u{44B}\u{442}\u{43E} \u{447}\u{438}\u{441}\u{442}\u{43E}, \u{43A}\u{43E}\u{434}=${event.code} \u{43F}\u{440}\u{438}\u{447}\u{438}\u{43D}\u{430}=${event.reason}`);
@@ -688,6 +690,7 @@ function clearCookie() {
 (0, _htmlElement.htmlElement).getCodeButton.addEventListener("click", sendConfirmationCodeEmail);
 (0, _htmlElement.htmlElement).modalButtons.addEventListener("click", (0, _changeName.openModalChangeName));
 (0, _htmlElement.htmlElement).butName.addEventListener("click", (0, _changeName.submitUserName));
+(0, _htmlElement.htmlElement).darkModeButton.addEventListener("click", (0, _darkMode.darkModeButtonHandler));
 for (let element of (0, _htmlElement.htmlElement).closeButtons)element.addEventListener("click", function(e) {
     e.preventDefault();
     (0, _htmlElement.htmlElement).modalSettingActive.classList.remove("active");
@@ -696,7 +699,7 @@ for (let element of (0, _htmlElement.htmlElement).closeButtons)element.addEventL
     location.reload();
 });
 
-},{"../cookie":"7KFrp","./htmlElement":"cpdmS","./render":"1kFK5","./changeName":"eHrQ3"}],"7KFrp":[function(require,module,exports) {
+},{"../cookie":"7KFrp","./htmlElement":"cpdmS","./render":"1kFK5","./changeName":"eHrQ3","./darkMode":"3XL9q"}],"7KFrp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getCookie", ()=>getCookie);
@@ -770,6 +773,7 @@ const htmlElement = {
     modalAuth: document.querySelector(".modalAuth"),
     modalButtons: document.querySelector(".setting"),
     closeButtons: document.querySelectorAll(".modalCross"),
+    darkModeButton: document.querySelector(".darkModeButton"),
     inpName: document.querySelector(".inpName"),
     getCodeButton: document.querySelector(".code"),
     email: document.querySelector(".codeInp"),
@@ -787,6 +791,7 @@ parcelHelpers.export(exports, "renderChat", ()=>renderChat);
 parcelHelpers.export(exports, "renderMessage", ()=>renderMessage);
 var _htmlElement = require("./htmlElement");
 var _cookie = require("../cookie");
+var _formatDate = require("./formatDate");
 let n = 0;
 let shouldLoad = true;
 function renderChat() {
@@ -794,9 +799,10 @@ function renderChat() {
     let objMessage = JSON.parse(localStorage.getItem("message")).messages;
     let j = 0;
     const slicedArray = objMessage.slice(0 + n, 20 + n);
+    console.log(objMessage);
     for (let value of slicedArray){
         j++;
-        renderMessage(value.user.email, value.user.name, value.text, false);
+        renderMessage(value.user.email, value.user.name, value.text, value.createdAt, false);
         if (j == 20) n = n + 20;
         if (n == 280) {
             alert("\u0412\u0441\u044F \u0438\u0441\u0442\u043E\u0440\u0438\u044F \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u0430");
@@ -804,22 +810,36 @@ function renderChat() {
         }
     }
 }
-function renderMessage(email, name, message, oneMessage) {
+function renderMessage(email, name, message, date, oneMessage) {
     const window = document.querySelector(".window");
     let temp = (0, _htmlElement.htmlElement).temp;
     let boolean = false;
     const elem = document.createElement("div");
+    // elem.dataset.darkmode = 'night'
     if (email === (0, _cookie.getCookie)("myEmail")) {
         elem.classList.add("me");
         boolean = true;
     } else elem.classList.add("to");
     if (temp instanceof HTMLTemplateElement) elem.append(temp.content.cloneNode(true));
     elem.querySelector(".text").innerHTML = `${name}: ${message}`;
+    elem.querySelector(".time").textContent = `${(0, _formatDate.formatDate)(date)}`;
     if (oneMessage) window.prepend(elem);
     else window.append(elem);
 }
 
-},{"./htmlElement":"cpdmS","../cookie":"7KFrp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eHrQ3":[function(require,module,exports) {
+},{"./htmlElement":"cpdmS","../cookie":"7KFrp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./formatDate":"3wnJw"}],"3wnJw":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "formatDate", ()=>formatDate);
+function formatDate(date) {
+    const dateHours = new Date(date).getHours();
+    const dateMinutes = new Date(date).getMinutes();
+    const dateMinutesFormate = dateMinutes < 10 ? `0` + dateMinutes : dateMinutes;
+    const time = `${dateHours}:${dateMinutesFormate}`;
+    return time;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eHrQ3":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "openModalChangeName", ()=>openModalChangeName);
@@ -852,6 +872,52 @@ function submitUserName(e) {
     }).catch((error)=>alert(error));
 }
 
-},{"./htmlElement":"cpdmS","../cookie":"7KFrp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["5qqEh","3rz9v"], "3rz9v", "parcelRequire94c2")
+},{"./htmlElement":"cpdmS","../cookie":"7KFrp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3XL9q":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "darkModeButtonHandler", ()=>darkModeButtonHandler);
+var _cookie = require("../cookie");
+function darkModeButtonHandler() {
+    let thisDark = (0, _cookie.getCookie)("darkThemeBoolean") ? (0, _cookie.getCookie)("darkThemeBoolean") : false;
+    const htmlElementDarkMode = {
+        modalSettingActive: document.querySelector(".modalSetting"),
+        modalEnter: document.querySelector(".modalEnter"),
+        modalAuth: document.querySelector(".modalAuth"),
+        darkModeButton: document.querySelector(".darkModeButton"),
+        bodyElement: document.querySelector("body"),
+        chatElement: document.querySelector(".chat"),
+        windowElement: document.querySelector(".window"),
+        postElement: document.querySelector(".post"),
+        meElement: document.querySelectorAll(".me"),
+        toElement: document.querySelectorAll(".to"),
+        timeElement: document.querySelectorAll(".time"),
+        modalEnterInpElement: document.querySelector(".modalEnter").querySelector("input"),
+        modalAuthInpElement: document.querySelector(".modalAuth").querySelector("input"),
+        modalSettingActiveInpElement: document.querySelector(".modalSetting").querySelector("input"),
+        modalEnterButElement: document.querySelector(".modalEnter").querySelector("button"),
+        modalAuthButElement: document.querySelector(".modalAuth").querySelector("button"),
+        modalSettingActiveButElement: document.querySelector(".modalSetting").querySelector("button"),
+        buttonAll: document.querySelectorAll("button"),
+        inputAll: document.querySelectorAll("input")
+    };
+    let element;
+    let color;
+    console.log(thisDark);
+    if (thisDark == "true") {
+        (0, _cookie.setCookie)("darkThemeBoolean", false);
+        color = "white";
+        console.log("\u042F \u0412 \u0422\u0420\u0423");
+    } else {
+        (0, _cookie.setCookie)("darkThemeBoolean", true);
+        color = "night";
+        console.log("\u042F \u0412 FALSE");
+    }
+    for(element in htmlElementDarkMode){
+        if (NodeList.prototype.isPrototypeOf(htmlElementDarkMode[element])) for (let value of htmlElementDarkMode[element])value.dataset.darkmode = color;
+        else htmlElementDarkMode[element].dataset.darkmode = color;
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../cookie":"7KFrp"}]},["5qqEh","3rz9v"], "3rz9v", "parcelRequire94c2")
 
 //# sourceMappingURL=index.a2a37aa4.js.map

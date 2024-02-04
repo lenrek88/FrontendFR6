@@ -6,17 +6,26 @@ body {
     background: gray;
 }
 
+body[data-darkmode="night"]{
+    background-color: #1b1b1b;
+    color: white;
+}
+
 .chat {
     width: 320px;
     height: 533px;
     padding: 8px;
-    background: white;
+    background-color: white;
     margin: 200px auto;
     display: grid;
     grid-template-rows: 39px 445px 48px;
     grid-template-columns: 98px 140px 66px;
     border: 1px solid black;
-
+}
+.chat[data-darkmode="night"]{
+    background-color: #1b1b1b;
+    color: white;
+    border: 1px solid gray;
 }
 
 .setting {
@@ -29,8 +38,11 @@ body {
     background: white;
     font-size: 16px;
     line-height: 19px;
+}
 
-
+.setting[data-darkmode="night"]{
+    background-color: #333333;
+    color: white;
 }
 
 .exit {
@@ -46,6 +58,11 @@ body {
 
 }
 
+.exit[data-darkmode="night"]{
+    background-color: #333333;
+    color: white;
+}
+
 
 .wrapper {
     display: flex;
@@ -57,19 +74,22 @@ body {
     grid-row: 2;
     grid-column: 1/3;
     border: 1px solid black;
-
 }
+
+
 
 .window {
     display: flex;
     flex-direction: column-reverse;
     justify-content: flex-end;
     align-items: end;
-
     background: white;
     padding: 8px;
-
-
+    color: black
+}
+.window[data-darkmode="night"]{
+    background-color: #1b1b1b;
+    color: white;
 }
 
 .post {
@@ -77,6 +97,12 @@ body {
     height: 32px;
     grid-row: 3;
     grid-column: 1;
+    
+}
+
+.post[data-darkmode='night']{
+    color: #383838;
+    background: #383838;
 }
 
 .post form {
@@ -96,6 +122,11 @@ body {
 
 }
 
+.post input[data-darkmode='night']{
+    background: #383838;
+    color: white;
+}
+
 .post button {
     width: 29px;
     height: 32px;
@@ -106,12 +137,13 @@ body {
     background: white;
     border: 1px solid black;
     color: #000000;
-
 }
 
-.client {
-
+.post button[data-darkmode='night']{
+    background: #383838;
+    color: white;
 }
+
 
 .me {
     background: #E5E5E5;
@@ -119,14 +151,22 @@ body {
     margin: 8px 0px 0px 8px;
 
 }
+.me[data-darkmode="night"]{
+    background-color: #383838 !important;
+    color: white;
+}
 
 .to {
-    background: #E5E5E5;
+    background-color: #E5E5E5;
     /*float: left;*/
     margin: 8px 8px 0px 0px;
     align-self: flex-start;
 
+}
 
+.to[data-darkmode="night"]{
+    background-color: #383838 !important;
+    color: white;
 }
 
 .time {
@@ -138,6 +178,10 @@ body {
     margin: 0px 8px 8px 8px;
     color: #333333;
     text-align: right;
+} 
+.time[data-darkmode="night"]{
+    color:white;
+    background-color: #383838;
 }
 
 .text {
@@ -163,6 +207,21 @@ body {
     border-radius: 3px;
     background-color: #fff;
     transition: 0.3s all;
+}
+
+.modalSetting[data-darkmode="night"]{
+    background-color: #1b1b1b;
+    color: white;
+}
+
+.modalAuth[data-darkmode="night"]{
+    background-color: #1b1b1b;
+    color: white;
+}
+
+.modalEnter[data-darkmode="night"]{
+    background-color: #1b1b1b;
+    color: white;
 }
 
 .overlay {
@@ -192,8 +251,9 @@ body {
     position: absolute;
     top: 82px;
     left: 14px;
-
 }
+
+
 
 .modalEnter form,
 .modalAuth form {
@@ -213,6 +273,22 @@ body {
     padding-left: 7px
 }
 
+.modalSetting input[data-darkmode="night"]{
+    background-color: #333333;
+    color: white;
+}
+
+.modalEnter input[data-darkmode="night"]{
+    background-color: #333333;
+    color: white;
+}
+
+
+.modalAuth input[data-darkmode="night"]{
+    background-color: #333333;
+    color: white;
+}
+
 .modalSetting button,
 .modalEnter button,
 .modalAuth button{
@@ -224,6 +300,34 @@ body {
     border: 1px solid black;
     color: #000000;
 }
+
+.modalSetting button[data-darkmode="night"]{
+    background-color: #333333;
+    color: white;
+}
+
+.modalEnter button[data-darkmode="night"]{
+    background-color: #333333;
+    color: white;
+}
+
+.modalAuth button[data-darkmode='night']{
+    color: white;
+    background-color: #333333;
+}
+
+.darkModeButton {
+    position: absolute;
+    top: 120px;
+    left: 14px;
+    width: 100px !important;
+    height: 32px !important;
+}
+
+
+
+
+
 
 .modalEnter button {
     width: 62px;
