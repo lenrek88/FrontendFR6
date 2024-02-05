@@ -4,48 +4,57 @@ import { renderChat } from "./render";
 import { renderMessage } from "./render";
 import { openModalChangeName } from "./changeName";
 import { submitUserName } from "./changeName";
-import { darkModeButtonHandler } from "./darkMode"
+import { darkModeButtonHandler, darkModeLogic } from "./darkMode"
 
-let tempCode = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlbnJlazg4QHlhbmRleC5ydSIsImlhdCI6MTcwNjYyMzEzNiwiZXhwIjoxNzEwMjE5NTM2fQ.Q61M4ini8HXAft_x4w3SKjZCmCMrMfMbP0cLCnjVbBY'
-const code = tempCode || getCookie('code');
-let socket = new WebSocket(`wss://edu.strada.one/websockets?${code}`);
+let socket;
+let code;
+
+export function loadSocket() {
+    code =  getCookie('code');
+    socket = new WebSocket(`wss://edu.strada.one/websockets?${code}`);
+}
+
+loadSocket();
 
 socket.onopen = function() {
-        if (!code) {
-            htmlElement.modalAuth.classList.add('active');
-            clearCookie();
-        } else {
-            fetch('https://edu.strada.one/api/messages/', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${code}`
+    if (!code) {
+        htmlElement.modalAuth.classList.add('active');
+        clearCookie();
+    } else {
+        fetch('https://edu.strada.one/api/messages/', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${code}`
+            }
+        }).then(response => response.json())
+            .then(obj => {
+                    localStorage.setItem('message', JSON.stringify(obj));
+                    mouseVisor();
+                    darkModeLogic();
+            })
+            .catch(error => {
+                    console.log(error);
+                    alert(error);
+                    clearCookie();
                 }
-            }).then(response => response.json())
-                .then(obj => {
-                        localStorage.setItem('message', JSON.stringify(obj));
-                        mouseVisor();
-                })
-                .catch(error => {
-                        console.log(error);
-                        alert(error);
-                        clearCookie();
-                    }
-                )
-    
-            fetch('https://edu.strada.one/api/user/me ', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${code}`,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json;charset=utf-8'
-                }
-            }).then(response => response.json())
-                .then(obj => {
-                    setCookie('myName', obj.name);
-                })
-                .catch(error => alert(error));
-        }
+            )
+
+        fetch('https://edu.strada.one/api/user/me ', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${code}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=utf-8'
+            }
+        }).then(response => response.json())
+            .then(obj => {
+                setCookie('myName', obj.name);
+            })
+            .catch(error => alert(error));
     }
+}
+
+
 
 type itemMessageObject = {
     email: string;
@@ -137,7 +146,7 @@ function inpSendChatHandler (e) {
 }
 
 
-function mouseVisor() {
+export function mouseVisor() {
     if (htmlElement.window.scrollHeight - (-htmlElement.window.scrollTop) - htmlElement.window.clientHeight <= 0 ) {
         renderChat()
     }
@@ -149,12 +158,30 @@ function clearCookie() {
     deleteCookie('code');
 }
 
+function dateSettingHandler(event) {
+   
+    event.preventDefault();
+
+    let date = event.target[0].value;
+    
+    // let dateString = date.slice(5,10);
+
+    // let Mounth = dateString.slice(0,2)
+    // let dayMounth = dateString.slice(3,5)
+    // let 
+
+    setCookie('thisDate', date)
+    // location.reload()
+    
+}
+
 htmlElement.window.addEventListener('scroll', mouseVisor)
 htmlElement.postBut.addEventListener('click', inpSendChatHandler);
 htmlElement.getCodeButton.addEventListener('click', sendConfirmationCodeEmail);
 htmlElement.modalButtons.addEventListener('click', openModalChangeName); 
 htmlElement.butName.addEventListener('click', submitUserName);
 htmlElement.darkModeButton.addEventListener('click', darkModeButtonHandler)
+htmlElement.dateSettingForm.addEventListener('submit', dateSettingHandler)
 
 for (let element of htmlElement.closeButtons) {
         element.addEventListener('click', function (e){
@@ -162,7 +189,6 @@ for (let element of htmlElement.closeButtons) {
             htmlElement.modalSettingActive.classList.remove('active');
             htmlElement.modalAuth.classList.remove('active');
             htmlElement.modalEnter.classList.remove('active');
-            location.reload();
-
+            loadSocket();
         });
 }

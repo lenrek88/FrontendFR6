@@ -579,14 +579,22 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"3rz9v":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "loadSocket", ()=>loadSocket);
+parcelHelpers.export(exports, "mouseVisor", ()=>mouseVisor);
 var _cookie = require("../cookie");
 var _htmlElement = require("./htmlElement");
 var _render = require("./render");
 var _changeName = require("./changeName");
 var _darkMode = require("./darkMode");
-let tempCode = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlbnJlazg4QHlhbmRleC5ydSIsImlhdCI6MTcwNjYyMzEzNiwiZXhwIjoxNzEwMjE5NTM2fQ.Q61M4ini8HXAft_x4w3SKjZCmCMrMfMbP0cLCnjVbBY";
-const code = tempCode || (0, _cookie.getCookie)("code");
-let socket = new WebSocket(`wss://edu.strada.one/websockets?${code}`);
+let socket;
+let code;
+function loadSocket() {
+    code = (0, _cookie.getCookie)("code");
+    socket = new WebSocket(`wss://edu.strada.one/websockets?${code}`);
+}
+loadSocket();
 socket.onopen = function() {
     if (!code) {
         (0, _htmlElement.htmlElement).modalAuth.classList.add("active");
@@ -600,6 +608,7 @@ socket.onopen = function() {
         }).then((response)=>response.json()).then((obj)=>{
             localStorage.setItem("message", JSON.stringify(obj));
             mouseVisor();
+            (0, _darkMode.darkModeLogic)();
         }).catch((error)=>{
             console.log(error);
             alert(error);
@@ -685,21 +694,32 @@ function clearCookie() {
     (0, _cookie.deleteCookie)("myEmail");
     (0, _cookie.deleteCookie)("code");
 }
+function dateSettingHandler(event) {
+    event.preventDefault();
+    let date = event.target[0].value;
+    // let dateString = date.slice(5,10);
+    // let Mounth = dateString.slice(0,2)
+    // let dayMounth = dateString.slice(3,5)
+    // let 
+    (0, _cookie.setCookie)("thisDate", date);
+// location.reload()
+}
 (0, _htmlElement.htmlElement).window.addEventListener("scroll", mouseVisor);
 (0, _htmlElement.htmlElement).postBut.addEventListener("click", inpSendChatHandler);
 (0, _htmlElement.htmlElement).getCodeButton.addEventListener("click", sendConfirmationCodeEmail);
 (0, _htmlElement.htmlElement).modalButtons.addEventListener("click", (0, _changeName.openModalChangeName));
 (0, _htmlElement.htmlElement).butName.addEventListener("click", (0, _changeName.submitUserName));
 (0, _htmlElement.htmlElement).darkModeButton.addEventListener("click", (0, _darkMode.darkModeButtonHandler));
+(0, _htmlElement.htmlElement).dateSettingForm.addEventListener("submit", dateSettingHandler);
 for (let element of (0, _htmlElement.htmlElement).closeButtons)element.addEventListener("click", function(e) {
     e.preventDefault();
     (0, _htmlElement.htmlElement).modalSettingActive.classList.remove("active");
     (0, _htmlElement.htmlElement).modalAuth.classList.remove("active");
     (0, _htmlElement.htmlElement).modalEnter.classList.remove("active");
-    location.reload();
+    loadSocket();
 });
 
-},{"../cookie":"7KFrp","./htmlElement":"cpdmS","./render":"1kFK5","./changeName":"eHrQ3","./darkMode":"3XL9q"}],"7KFrp":[function(require,module,exports) {
+},{"../cookie":"7KFrp","./htmlElement":"cpdmS","./render":"1kFK5","./changeName":"eHrQ3","./darkMode":"3XL9q","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7KFrp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getCookie", ()=>getCookie);
@@ -781,7 +801,9 @@ const htmlElement = {
     exit: document.querySelector(".exit"),
     window: document.querySelector(".wrapper"),
     postBut: document.querySelector(".post").querySelector("button"),
-    postInp: document.querySelector(".post").querySelector("input")
+    postInp: document.querySelector(".post").querySelector("input"),
+    dateSettingForm: document.querySelector(".dateSetting").querySelector("form"),
+    dateSettingInput: document.querySelector(".dateSetting").querySelector("input")
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1kFK5":[function(require,module,exports) {
@@ -797,16 +819,21 @@ let shouldLoad = true;
 function renderChat() {
     if (!shouldLoad) return;
     let objMessage = JSON.parse(localStorage.getItem("message")).messages;
-    let j = 0;
-    const slicedArray = objMessage.slice(0 + n, 20 + n);
-    console.log(objMessage);
-    for (let value of slicedArray){
-        j++;
-        renderMessage(value.user.email, value.user.name, value.text, value.createdAt, false);
-        if (j == 20) n = n + 20;
-        if (n == 280) {
-            alert("\u0412\u0441\u044F \u0438\u0441\u0442\u043E\u0440\u0438\u044F \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u0430");
-            shouldLoad = false;
+    console.log((0, _cookie.getCookie)("thisDate"));
+    if ((0, _cookie.getCookie)("thisDate") !== undefined) {
+        for (let value of objMessage)if ((0, _formatDate.formatDate)(value.createdAt, "y-m-d") === (0, _cookie.getCookie)("thisDate")) renderMessage(value.user.email, value.user.name, value.text, value.createdAt, false);
+    } else {
+        let j = 0;
+        const slicedArray = objMessage.slice(0 + n, 20 + n);
+        console.log(slicedArray);
+        for (let value of slicedArray){
+            j++;
+            renderMessage(value.user.email, value.user.name, value.text, value.createdAt, false);
+            if (j == 20) n = n + 20;
+            if (n == 280) {
+                alert("\u0412\u0441\u044F \u0438\u0441\u0442\u043E\u0440\u0438\u044F \u0437\u0430\u0433\u0440\u0443\u0436\u0435\u043D\u0430");
+                shouldLoad = false;
+            }
         }
     }
 }
@@ -815,14 +842,17 @@ function renderMessage(email, name, message, date, oneMessage) {
     let temp = (0, _htmlElement.htmlElement).temp;
     let boolean = false;
     const elem = document.createElement("div");
-    // elem.dataset.darkmode = 'night'
     if (email === (0, _cookie.getCookie)("myEmail")) {
         elem.classList.add("me");
         boolean = true;
-    } else elem.classList.add("to");
+        if ((0, _cookie.getCookie)("darkThemeBoolean") == "true") elem.dataset.darkmode = "night";
+    } else {
+        elem.classList.add("to");
+        if ((0, _cookie.getCookie)("darkThemeBoolean") == "true") elem.dataset.darkmode = "night";
+    }
     if (temp instanceof HTMLTemplateElement) elem.append(temp.content.cloneNode(true));
     elem.querySelector(".text").innerHTML = `${name}: ${message}`;
-    elem.querySelector(".time").textContent = `${(0, _formatDate.formatDate)(date)}`;
+    elem.querySelector(".time").textContent = `${(0, _formatDate.formatDate)(date, "h:m")}`;
     if (oneMessage) window.prepend(elem);
     else window.append(elem);
 }
@@ -831,12 +861,21 @@ function renderMessage(email, name, message, date, oneMessage) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "formatDate", ()=>formatDate);
-function formatDate(date) {
-    const dateHours = new Date(date).getHours();
-    const dateMinutes = new Date(date).getMinutes();
-    const dateMinutesFormate = dateMinutes < 10 ? `0` + dateMinutes : dateMinutes;
-    const time = `${dateHours}:${dateMinutesFormate}`;
-    return time;
+function formatDate(date, format) {
+    if (format === "h:m") {
+        const dateHours = new Date(date).getHours();
+        const dateMinutes = new Date(date).getMinutes();
+        const dateMinutesFormate = dateMinutes < 10 ? `0` + dateMinutes : dateMinutes;
+        const time = `${dateHours}:${dateMinutesFormate}`;
+        return time;
+    } else if (format === "y-m-d") {
+        const dateDay = `0${+new Date(date).getDate()}`;
+        const dateMounth = `0${+new Date(date).getMonth() + 1}`;
+        const dateFullYear = new Date(date).getFullYear();
+        const time = `${dateFullYear}-${dateMounth}-${dateDay}`;
+        console.log(time);
+        return time;
+    }
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eHrQ3":[function(require,module,exports) {
@@ -846,6 +885,7 @@ parcelHelpers.export(exports, "openModalChangeName", ()=>openModalChangeName);
 parcelHelpers.export(exports, "submitUserName", ()=>submitUserName);
 var _htmlElement = require("./htmlElement");
 var _cookie = require("../cookie");
+var _main = require("./main");
 function openModalChangeName() {
     (0, _htmlElement.htmlElement).modalSettingActive.classList.add("active");
     if ((0, _htmlElement.htmlElement).inpName instanceof HTMLInputElement) (0, _htmlElement.htmlElement).inpName.value = (0, _cookie.getCookie)("myName") || "";
@@ -868,17 +908,17 @@ function submitUserName(e) {
     }).then((response)=>response.json()).then((obj)=>{
         if ((0, _htmlElement.htmlElement).butName.previousSibling.previousSibling instanceof HTMLInputElement) (0, _cookie.setCookie)("myName", (0, _htmlElement.htmlElement).butName.previousSibling.previousSibling.value);
         (0, _htmlElement.htmlElement).modalSettingActive.classList.remove("active");
-        location.reload();
+        (0, _main.mouseVisor)();
     }).catch((error)=>alert(error));
 }
 
-},{"./htmlElement":"cpdmS","../cookie":"7KFrp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3XL9q":[function(require,module,exports) {
+},{"./htmlElement":"cpdmS","../cookie":"7KFrp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./main":"3rz9v"}],"3XL9q":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "darkModeLogic", ()=>darkModeLogic);
 parcelHelpers.export(exports, "darkModeButtonHandler", ()=>darkModeButtonHandler);
 var _cookie = require("../cookie");
-function darkModeButtonHandler() {
-    let thisDark = (0, _cookie.getCookie)("darkThemeBoolean") ? (0, _cookie.getCookie)("darkThemeBoolean") : false;
+function darkModeReRender(booleanDark) {
     const htmlElementDarkMode = {
         modalSettingActive: document.querySelector(".modalSetting"),
         modalEnter: document.querySelector(".modalEnter"),
@@ -901,21 +941,21 @@ function darkModeButtonHandler() {
         inputAll: document.querySelectorAll("input")
     };
     let element;
-    let color;
-    console.log(thisDark);
-    if (thisDark == "true") {
-        (0, _cookie.setCookie)("darkThemeBoolean", false);
-        color = "white";
-        console.log("\u042F \u0412 \u0422\u0420\u0423");
-    } else {
-        (0, _cookie.setCookie)("darkThemeBoolean", true);
-        color = "night";
-        console.log("\u042F \u0412 FALSE");
-    }
+    let color = booleanDark === "true" ? "night" : "white";
     for(element in htmlElementDarkMode){
         if (NodeList.prototype.isPrototypeOf(htmlElementDarkMode[element])) for (let value of htmlElementDarkMode[element])value.dataset.darkmode = color;
         else htmlElementDarkMode[element].dataset.darkmode = color;
     }
+}
+function darkModeLogic() {
+    let thisDark = (0, _cookie.getCookie)("darkThemeBoolean") === "true" ? "true" : "false";
+    darkModeReRender(thisDark);
+}
+function darkModeButtonHandler() {
+    let thisDark = (0, _cookie.getCookie)("darkThemeBoolean");
+    if (thisDark === "true") (0, _cookie.setCookie)("darkThemeBoolean", "false");
+    else (0, _cookie.setCookie)("darkThemeBoolean", "true");
+    darkModeLogic();
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../cookie":"7KFrp"}]},["5qqEh","3rz9v"], "3rz9v", "parcelRequire94c2")

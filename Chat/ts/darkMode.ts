@@ -1,10 +1,6 @@
-import { getCookie, deleteCookie, setCookie } from "../cookie";
+import { getCookie, setCookie } from "../cookie";
 
-export function darkModeButtonHandler() {
-
-
-    let thisDark = getCookie('darkThemeBoolean') ? getCookie('darkThemeBoolean') : false;
-
+function darkModeReRender(booleanDark) {
     const htmlElementDarkMode = {
         modalSettingActive : document.querySelector('.modalSetting'),
         modalEnter: document.querySelector('.modalEnter'),
@@ -25,25 +21,10 @@ export function darkModeButtonHandler() {
         modalSettingActiveButElement : document.querySelector('.modalSetting').querySelector('button'),
         buttonAll: document.querySelectorAll('button'),
         inputAll: document.querySelectorAll('input'),
-
     }
-
+    
     let element : any;
-    let color : string;
-
-    console.log(thisDark)
-
-    if (thisDark == "true") {
-        setCookie('darkThemeBoolean', false);
-        color = 'white';
-        console.log('Я В ТРУ')
-
-    } else {
-        setCookie('darkThemeBoolean', true);
-        color = 'night';
-        console.log('Я В FALSE')
-
-    }
+    let color = booleanDark === 'true' ? 'night' : 'white';
 
     for (element in htmlElementDarkMode) {
         if (NodeList.prototype.isPrototypeOf(htmlElementDarkMode[element])){
@@ -54,4 +35,27 @@ export function darkModeButtonHandler() {
             htmlElementDarkMode[element].dataset.darkmode = color;
         }
     }
+
+}
+
+
+export function darkModeLogic() {
+    
+    let thisDark = getCookie('darkThemeBoolean') === 'true' ? 'true' : 'false';
+    darkModeReRender(thisDark);
+
+}
+
+export function darkModeButtonHandler() {
+    let thisDark = getCookie('darkThemeBoolean');
+
+
+    if (thisDark === 'true') {
+        setCookie('darkThemeBoolean', 'false')
+    } else {
+        setCookie('darkThemeBoolean', 'true')
+    }
+
+    darkModeLogic();
+
 }

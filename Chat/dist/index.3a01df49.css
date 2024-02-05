@@ -306,4 +306,20 @@ body[data-darkmode="night"] {
   left: 14px;
 }
 
+.dateSetting {
+  position: absolute;
+  top: 158px;
+  left: 14px;
+}
+
+.dateSetting form {
+  width: 250px;
+  top: 50px;
+  left: -5px;
+}
+
+.dateSetting input {
+  width: 205px;
+}
+
 /*# sourceMappingURL=index.3a01df49.css.map */

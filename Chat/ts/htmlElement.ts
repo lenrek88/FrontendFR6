@@ -16,6 +16,8 @@ export const htmlElement = {
     window: document.querySelector('.wrapper'),
     postBut: document.querySelector('.post').querySelector('button'),
     postInp: document.querySelector('.post').querySelector('input'),
+    dateSettingForm: document.querySelector('.dateSetting').querySelector('form'),
+    dateSettingInput: document.querySelector('.dateSetting').querySelector('input'),
 
  
 }
