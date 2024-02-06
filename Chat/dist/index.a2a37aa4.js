@@ -697,12 +697,13 @@ function clearCookie() {
 function dateSettingHandler(event) {
     event.preventDefault();
     let date = event.target[0].value;
-    // let dateString = date.slice(5,10);
-    // let Mounth = dateString.slice(0,2)
-    // let dayMounth = dateString.slice(3,5)
-    // let 
+    const messageAllTo = document.querySelectorAll(".to");
+    const messageAllMe = document.querySelectorAll(".me");
+    for (let value of messageAllMe)value.remove();
+    for (let value of messageAllTo)value.remove();
     (0, _cookie.setCookie)("thisDate", date);
-// location.reload()
+    mouseVisor();
+    console.log("dateSettingHandler FINISH");
 }
 (0, _htmlElement.htmlElement).window.addEventListener("scroll", mouseVisor);
 (0, _htmlElement.htmlElement).postBut.addEventListener("click", inpSendChatHandler);
@@ -821,6 +822,10 @@ function renderChat() {
     let objMessage = JSON.parse(localStorage.getItem("message")).messages;
     console.log((0, _cookie.getCookie)("thisDate"));
     if ((0, _cookie.getCookie)("thisDate") !== undefined) {
+        const messageAllTo = document.querySelectorAll(".to");
+        const messageAllMe = document.querySelectorAll(".me");
+        for (let value of messageAllMe)value.remove();
+        for (let value of messageAllTo)value.remove();
         for (let value of objMessage)if ((0, _formatDate.formatDate)(value.createdAt, "y-m-d") === (0, _cookie.getCookie)("thisDate")) renderMessage(value.user.email, value.user.name, value.text, value.createdAt, false);
     } else {
         let j = 0;
@@ -869,8 +874,8 @@ function formatDate(date, format) {
         const time = `${dateHours}:${dateMinutesFormate}`;
         return time;
     } else if (format === "y-m-d") {
-        const dateDay = `0${+new Date(date).getDate()}`;
-        const dateMounth = `0${+new Date(date).getMonth() + 1}`;
+        const dateDay = new Date(date).getDate() < 10 ? `0${+new Date(date).getDate()}` : new Date(date).getDate();
+        const dateMounth = new Date(date).getDate() < 10 ? `0${+new Date(date).getMonth() + 1}` : new Date(date).getDate();
         const dateFullYear = new Date(date).getFullYear();
         const time = `${dateFullYear}-${dateMounth}-${dateDay}`;
         console.log(time);
@@ -912,7 +917,7 @@ function submitUserName(e) {
     }).catch((error)=>alert(error));
 }
 
-},{"./htmlElement":"cpdmS","../cookie":"7KFrp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./main":"3rz9v"}],"3XL9q":[function(require,module,exports) {
+},{"./htmlElement":"cpdmS","../cookie":"7KFrp","./main":"3rz9v","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3XL9q":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "darkModeLogic", ()=>darkModeLogic);

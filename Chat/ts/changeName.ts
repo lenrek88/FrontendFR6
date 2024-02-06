@@ -1,6 +1,5 @@
 import { htmlElement } from "./htmlElement";
 import { getCookie, setCookie } from "../cookie";
-import { loadSocket } from "./main";
 import { mouseVisor } from "./main";
 
 export function openModalChangeName(){

@@ -9,8 +9,8 @@ export function formatDate(date : string, format) {
         return time;
 
     } else if (format === 'y-m-d') {
-        const dateDay = `0${+new Date(date).getDate()}`;
-        const dateMounth = `0${+new Date(date).getMonth()+1}` ;
+        const dateDay = new Date(date).getDate() < 10 ? `0${+new Date(date).getDate()}` : new Date(date).getDate();
+        const dateMounth = new Date(date).getDate() < 10 ? `0${+new Date(date).getMonth()+1}` : new Date(date).getDate();
         const dateFullYear = new Date(date).getFullYear();
         const time = `${dateFullYear}-${dateMounth}-${dateDay}`;
         console.log(time)

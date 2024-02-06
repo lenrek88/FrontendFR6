@@ -16,6 +16,18 @@ export function renderChat() {
    
 
     if (getCookie('thisDate') !== undefined){
+        
+        const messageAllTo = document.querySelectorAll('.to');
+        const messageAllMe = document.querySelectorAll('.me');
+
+        for (let value of messageAllMe){
+            value.remove();
+        }
+        for (let value of messageAllTo){
+            value.remove();
+        }
+
+
         for (let value of objMessage) {
             if (formatDate(value.createdAt, 'y-m-d') === getCookie('thisDate')) {
                 renderMessage(value.user.email, value.user.name, value.text, value.createdAt, false);

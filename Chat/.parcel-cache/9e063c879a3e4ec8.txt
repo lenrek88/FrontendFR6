@@ -70,13 +70,13 @@
 123D:\Frontend\JavaScript\Chat\node_modules\@parcel\optimizer-htmlnano\node_modules\css-tree\lib\definition-syntax\generate.js133505669479048570 0
 50D:\Frontend\JavaScript\Chat\node_modules\@mischnic133505669458522292 1
 58D:\Frontend\JavaScript\Chat\node_modules\lmdb\src\misc.cpp133505669480668193 0
-32D:\Frontend\JavaScript\Chat\dist133516381055362320 1
-44D:\Frontend\JavaScript\Chat\ts\formatDate.ts133516381055059316 0
+32D:\Frontend\JavaScript\Chat\dist133517084109496510 1
+44D:\Frontend\JavaScript\Chat\ts\formatDate.ts133517038166834270 0
 64D:\Frontend\JavaScript\Chat\node_modules\utility-types\README.md133505669475868371 0
 85D:\Frontend\JavaScript\Chat\node_modules\@babel\code-frame\node_modules\chalk\license133505669473266739 0
 45D:\Frontend\JavaScript\Chat\node_modules\lmdb133505669482264981 1
 94D:\Frontend\JavaScript\Chat\node_modules\csso\node_modules\css-tree\lib\syntax\pseudo\index.js133505669482855036 0
-38D:\Frontend\JavaScript\Chat\index.html133516359260873789 0
+38D:\Frontend\JavaScript\Chat\index.html133517084128306475 0
 113D:\Frontend\JavaScript\Chat\node_modules\@parcel\optimizer-svgo\node_modules\css-tree\lib\syntax\node\Operator.js133505669480773389 0
 63D:\Frontend\JavaScript\Chat\node_modules\date-fns\locale\be.mjs133515388436060374 0
 68D:\Frontend\JavaScript\Chat\node_modules\date-fns\previousFriday.mjs133515388442104162 0
@@ -141,7 +141,7 @@
 77D:\Frontend\JavaScript\Chat\node_modules\csso\node_modules\css-tree\lib\lexer133505669483474968 1
 63D:\Frontend\JavaScript\Chat\node_modules\date-fns\isThisWeek.js133515388428360133 0
 77D:\Frontend\JavaScript\Chat\node_modules\@parcel\bundler-default\package.json133505669474431285 0
-44D:\Frontend\JavaScript\Chat\ts\changeName.ts133516310795654513 0
+44D:\Frontend\JavaScript\Chat\ts\changeName.ts133517084108243905 0
 84D:\Frontend\JavaScript\Chat\node_modules\date-fns\locale\it\_lib\formatRelative.d.ts133515388452142952 0
 91D:\Frontend\JavaScript\Chat\node_modules\css-select\node_modules\domhandler\lib\esm\node.js133505669474025901 0
 47D:\Frontend\JavaScript\Chat\node_modules\parcel133505669474969070 1
@@ -167,7 +167,7 @@
 110D:\Frontend\JavaScript\Chat\node_modules\@parcel\optimizer-svgo\node_modules\css-tree\lib\syntax\pseudo\has.js133505669479269459 0
 60D:\Frontend\JavaScript\Chat\node_modules\js-yaml\lib\type.js133505669477764589 0
 85D:\Frontend\JavaScript\Chat\node_modules\date-fns\locale\ar-MA\_lib\formatDistance.js133515388424805083 0
-38D:\Frontend\JavaScript\Chat\ts\main.ts133516376663685335 0
+38D:\Frontend\JavaScript\Chat\ts\main.ts133517083737872715 0
 80D:\Frontend\JavaScript\Chat\node_modules\date-fns\differenceInBusinessDays.d.mts133515388443669752 0
 55D:\Frontend\JavaScript\Chat\node_modules\date-fns\fp.js133515388427101157 0
 87D:\Frontend\JavaScript\Chat\node_modules\csso\node_modules\css-tree\lib\syntax\index.js133505669482825011 0
@@ -178,7 +178,7 @@
 70D:\Frontend\JavaScript\Chat\node_modules\date-fns\getDaysInMonth.d.mts133515388446058420 0
 90D:\Frontend\JavaScript\Chat\node_modules\css-select\node_modules\domutils\lib\helpers.d.ts133505669479091968 0
 70D:\Frontend\JavaScript\Chat\node_modules\react-refresh\build-info.json133505669474969070 0
-40D:\Frontend\JavaScript\Chat\ts\render.ts133516381479296339 0
+40D:\Frontend\JavaScript\Chat\ts\render.ts133517081683458417 0
 50D:\Frontend\JavaScript\Chat\node_modules\csso\dist133505669480668193 1
 48D:\Frontend\JavaScript\Chat\node_modules\globals133505669474396806 1
 55D:\Frontend\JavaScript\Chat\node_modules\lmdb\README.md133505669482165576 0
@@ -5508,7 +5508,7 @@
 59D:\Frontend\JavaScript\Chat\node_modules\date-fns\locale\sl133515388425500890 1
 64D:\Frontend\JavaScript\Chat\node_modules\date-fns\locale\sl.d.ts133515388455498718 0
 62D:\Frontend\JavaScript\Chat\node_modules\date-fns\locale\sl.js133515388434967814 0
-54D:\Frontend\JavaScript\Chat\dist\index.a2a37aa4.js.map133516381055362320 0
+54D:\Frontend\JavaScript\Chat\dist\index.a2a37aa4.js.map133517084109496510 0
 63D:\Frontend\JavaScript\Chat\node_modules\date-fns\locale\sl.mjs133515388442567669 0
 62D:\Frontend\JavaScript\Chat\node_modules\date-fns\locale\sq.js133515388434967814 0
 64D:\Frontend\JavaScript\Chat\node_modules\date-fns\locale\sr-Latn133515388425500890 1
@@ -10218,7 +10218,7 @@
 67D:\Frontend\JavaScript\Chat\node_modules\@parcel\core\test\fixtures133505669483266330 1
 75D:\Frontend\JavaScript\Chat\node_modules\@parcel\core\src\Transformation.js133505669482504683 0
 80D:\Frontend\JavaScript\Chat\node_modules\@parcel\core\test\InternalAsset.test.js133505669480492393 0
-50D:\Frontend\JavaScript\Chat\dist\index.a2a37aa4.js133516381055332298 0
+50D:\Frontend\JavaScript\Chat\dist\index.a2a37aa4.js133517084109381797 0
 81D:\Frontend\JavaScript\Chat\node_modules\@parcel\core\test\PackagerRunner.test.js133505669481080258 0
 83D:\Frontend\JavaScript\Chat\node_modules\@parcel\core\test\PublicDependency.test.js133505669481732214 0
 84D:\Frontend\JavaScript\Chat\node_modules\@parcel\core\test\PublicEnvironment.test.js133505669481752242 0
@@ -10472,9 +10472,9 @@
 52D:\Frontend\JavaScript\Chat\node_modules\.bin\semver133505669490402769 0
 50D:\Frontend\JavaScript\Chat\node_modules\.bin\svgo133505669490402769 0
 54D:\Frontend\JavaScript\Chat\node_modules\.bin\svgo.cmd133505669490402769 0
-51D:\Frontend\JavaScript\Chat\dist\index.3a01df49.css133516377330098067 0
-55D:\Frontend\JavaScript\Chat\dist\index.3a01df49.css.map133516377330138096 0
-43D:\Frontend\JavaScript\Chat\dist\index.html133516377330248185 0
+51D:\Frontend\JavaScript\Chat\dist\index.3a01df49.css133517084109364122 0
+55D:\Frontend\JavaScript\Chat\dist\index.3a01df49.css.map133517084109381797 0
+43D:\Frontend\JavaScript\Chat\dist\index.html133517084109381797 0
 47D:\Frontend\JavaScript\Chat\build\formatDate.js133515480511301939 0
 48D:\Frontend\JavaScript\Chat\build\htmlElement.js133515480511091909 0
 41D:\Frontend\JavaScript\Chat\build\main.js133515480511388286 0

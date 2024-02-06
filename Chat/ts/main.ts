@@ -164,14 +164,19 @@ function dateSettingHandler(event) {
 
     let date = event.target[0].value;
     
-    // let dateString = date.slice(5,10);
+    const messageAllTo = document.querySelectorAll('.to');
+    const messageAllMe = document.querySelectorAll('.me');
 
-    // let Mounth = dateString.slice(0,2)
-    // let dayMounth = dateString.slice(3,5)
-    // let 
+    for (let value of messageAllMe){
+        value.remove();
+    }
+    for (let value of messageAllTo){
+        value.remove();
+    }
 
     setCookie('thisDate', date)
-    // location.reload()
+    mouseVisor();
+    console.log('dateSettingHandler FINISH')
     
 }
 
