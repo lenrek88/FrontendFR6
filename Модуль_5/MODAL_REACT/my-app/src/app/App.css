@@ -2,6 +2,7 @@
   text-align: center;
 }
 
+
 .App-header {
   background-color: gray;
   min-height: 100vh;
@@ -12,6 +13,8 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+
 
 .LoginForm {
   background-color: white;
