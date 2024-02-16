@@ -1,4 +1,16 @@
 function LoginForm() {
+
+    function handlerClick(event) {
+      event.preventDefault();
+      let login = event.target.previousSibling.previousSibling.value;
+      let password = event.target.previousSibling.value;
+      console.log(`
+      Пользователь успешно авторизован
+      Логин: ${login}
+      Пароль: ${password}
+      `)
+    };
+
     return(
       <>
         <div className="LoginForm">
@@ -6,11 +18,10 @@ function LoginForm() {
           <form>
           <input placeholder="Username"></input>
           <input placeholder="Password"></input>
-          <button>LOGIN</button>
+          <button onClick={handlerClick}>LOGIN</button>
           </form>
         </div>
       </>
-  
   
     );
   }

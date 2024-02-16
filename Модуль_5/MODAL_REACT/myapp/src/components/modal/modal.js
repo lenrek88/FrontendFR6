@@ -3,7 +3,7 @@ import RegistrationForm from "../ui/RegistrationForm/Registration";
 
 function Modal() {
 
-    let isLogin = false;
+    let isLogin = true;
 
     return(
         <div className="ModalForm">
