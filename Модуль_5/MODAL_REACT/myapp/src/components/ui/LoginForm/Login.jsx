@@ -1,13 +1,18 @@
+import { useState } from "react";
+
+
 function LoginForm() {
 
-    function handlerClick(event) {
-      event.preventDefault();
-      let login = event.target.previousSibling.previousSibling.value;
-      let password = event.target.previousSibling.value;
+  const [credentials, setCredentials] = useState({email:'', password:''})
+
+
+
+    function handlerClick(e) {
+      e.preventDefault();
       console.log(`
       Пользователь успешно авторизован
-      Логин: ${login}
-      Пароль: ${password}
+      Логин: ${credentials.email}
+      Пароль: ${credentials.password}
       `)
     };
 
@@ -16,8 +21,8 @@ function LoginForm() {
         <div className="LoginForm">
         <h3>Login Form</h3>
           <form>
-          <input placeholder="Username"></input>
-          <input placeholder="Password"></input>
+          <input placeholder="Username" onChange={(e) => {setCredentials({...credentials, email: e.target.value})}}></input>
+          <input placeholder="Password" onChange={(e) => {setCredentials({...credentials, password: e.target.value})}}></input>
           <button onClick={handlerClick}>LOGIN</button>
           </form>
         </div>
