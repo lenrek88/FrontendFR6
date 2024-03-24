@@ -11,7 +11,9 @@ import Box from '@mui/material/Box';
 
 
 export default function Tasks({columnName}) {
-    const tasks = useTask();
+    const tasks1 = useTask();
+
+    const tasks = tasks1.reverse();
     
     let done = columnName === 'План' ? false : true;
 
@@ -26,14 +28,14 @@ export default function Tasks({columnName}) {
     
     return(
         <>
+             {taskLength > 0 ? <Typography variant="button">{columnName}({taskLength})</Typography> : null}   
              <Box
              width={450}
              display='flex'
-             flexDirection='column'
-             gap={5}
+             flexDirection={done ? 'column-reverse' : 'column'}
+             gap={2}
              >
-            {taskLength > 0 ? <Typography variant="button">{columnName}({taskLength})</Typography> : null}   
-            {tasks.map(task => {
+            {tasks.reverse().map(task => {
                 if(done) {
                     if(task.done) {
                         return <Task key={task.id} task={task}/>
