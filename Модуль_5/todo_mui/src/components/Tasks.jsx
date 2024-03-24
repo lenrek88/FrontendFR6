@@ -117,19 +117,19 @@ function Task({ task }){
                 }}
             />
             <Typography color="black" width={400}>{task.text}</Typography>
-            <IconButton onClick={ e => {
+            <IconButton sx={{color:'#2196F3'}} onClick={ e => {
                 setIsEditing(!isEditing)
             }}>
-                <EditIcon color="#2196F3"></EditIcon>
+                <EditIcon ></EditIcon>
             </IconButton>
-            <IconButton onClick={ e => {
+            <IconButton sx={{color:'orange'}} onClick={ e => {
                 dispatch({
                     type: 'deleted',
                     id: task.id
                 })
             }
             }>
-                <DeleteIcon color="orange"></DeleteIcon>
+                <DeleteIcon ></DeleteIcon>
             </IconButton>
             </Box>
             </>
