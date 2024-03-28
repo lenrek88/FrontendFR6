@@ -2,7 +2,6 @@
   text-align: center;
 }
 
-
 .App-header {
   background-color: white;
   display: flex;
@@ -24,7 +23,6 @@
   color: black;
 }
 
-
 .ModalForm {
   background-color: white;
   width: 500px;
@@ -34,7 +32,7 @@
   flex-direction: column;
 }
 
-.ModalForm  button {
+.ModalForm button {
   width: 350px;
   height: 50px;
   background-color: blue;
@@ -51,11 +49,9 @@
   border-bottom: 2px gray solid;
   margin-top: 20px;
   font-size: 20px;
-
 }
 
 .ModalForm input:focus {
-  
   border-bottom: 2px blue solid;
 }
 
@@ -88,13 +84,11 @@
   font-size: calc(5px + 2vmin);
 }
 
-
 .FiltersContainer > select {
   margin: 10px;
   border: none;
   border-bottom: 1px gray solid;
   font-size: calc(5px + 2vmin);
-
 }
 
 .pagination > button {
