@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { FilmContext } from "../../context/context.js";
+import { useEffect, useState } from "react";
 import { Autocomplete, Checkbox, Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";

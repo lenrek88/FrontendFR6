@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import FilmCard from "./filmCard";
-import { useContext, useEffect, useState } from "react";
-import { useFilms, useFilmsDispatch } from "../../context/context";
+import { useEffect, useState } from "react";
+import { useFilms } from "../../context/context";
 import getCookie from "../../../cookie/getCookie";
 
 const Token = getCookie("userToken");
@@ -48,11 +48,11 @@ export default function FilmGrid() {
       {filmContext
         ? filmContext.results.map((item) => {
             let isFavorite = favoriteMap.find((items) => items.id == item.id);
-
+            console.log(filmContext.results);
             return (
               <FilmCard
                 key={item.id}
-                img={item.poster_path}
+                img={item.backdrop_path}
                 title={item.title}
                 vote_average={item.vote_average}
                 itemId={item.id}

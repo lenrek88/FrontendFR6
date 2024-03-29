@@ -37,6 +37,7 @@ export default function FilmCardInfo() {
 
   function favoriteHandler() {
     const body = { media_type: "movie", media_id: id, favorite: isFavorite };
+    setIsFavorite((isFavorite) => !isFavorite);
     const options2 = {
       method: "POST",
       headers: {
@@ -47,14 +48,13 @@ export default function FilmCardInfo() {
       body: JSON.stringify(body),
     };
 
-    fetch(`https://api.themoviedb.org/3/account/${userId}/favorite`, options2)
-      .then((response) => response.json())
-      .then((response) => {
-        setIsFavorite(!isFavorite);
-      })
-      .catch((err) => {
-        alert("Ошибка доавбления в избранное. Повторите попытку позднее.");
-      });
+    fetch(
+      `https://api.themoviedb.org/3/account/${userId}/favorite`,
+      options2
+    ).catch((err) => {
+      setIsFavorite((isFavorite) => !isFavorite);
+      alert("Ошибка доавбления в избранное. Повторите попытку позднее.");
+    });
   }
 
   useEffect(() => {
