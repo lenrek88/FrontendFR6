@@ -10,14 +10,17 @@ import {
 } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { addUserToken } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
 
 export default function PostToken() {
     const [Token, setToken] = useState('');
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     function handlerSetToken() {
         document.cookie = `userToken = ${Token}`;
-        // dispatch(addUserToken(Token));
+        console.log(Token);
+        dispatch(addUserToken(Token));
     }
 
     useEffect(() => {

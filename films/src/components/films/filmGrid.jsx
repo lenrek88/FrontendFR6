@@ -3,7 +3,8 @@ import FilmCard from './filmCard';
 import { useEffect, useState } from 'react';
 import { useFilms } from '../../context/context';
 import getCookie from '../../utils/cookie/getCookie';
-
+import { useSelector } from 'react-redux';
+import store from '../../redux/store';
 const Token = getCookie('userToken');
 
 const OPTIONS = {
@@ -32,6 +33,9 @@ export default function FilmGrid() {
             .catch((err) => console.error(err));
     }, []);
 
+    const tokens = useSelector((store) => store);
+    console.log(tokens);
+    console.log(store.getState());
     return (
         <Box
             sx={{
