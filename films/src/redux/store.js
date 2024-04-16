@@ -1,18 +1,38 @@
-import { createStore, applyMiddleware } from 'redux';
-import { ADD_USER_TOKEN } from './actions';
-import thunk from 'redux-thunk';
+import { addUserToken, setFilms, setPage } from './actions';
+import { configureStore, createReducer } from '@reduxjs/toolkit';
 
-function reducer(state = [], action) {
-    switch (action.type) {
-        case ADD_USER_TOKEN:
-            console.log(action.newToken);
-            return { token: action.newToken };
+// const initialFilms = {
+//     page: 1,
+//     token: '',
+//     results: [],
+// };
 
-        default:
-            return state;
-    }
-}
+const filmReducer = createReducer([], (builder) => {
+    builder.addCase(setFilms.type, (state, action) => {
+        return state = action.payload;
+    });
+});
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const userReducer = createReducer('', (builder) => {
+    builder.addCase(addUserToken.type, (state, action) => {
+        return state = action.payload;
+    });
+});
+
+const pageReducer = createReducer(1, (builder) => {
+    builder.addCase(setPage.type, (state, action) => {
+        return state = action.payload;
+    });
+});
+
+const store = configureStore({
+    reducer: {
+        results: filmReducer,
+        token: userReducer,
+        page: pageReducer,
+    },
+});
+
+console.log(store.getState())
 
 export default store;

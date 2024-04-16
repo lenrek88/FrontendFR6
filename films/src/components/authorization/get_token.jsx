@@ -16,8 +16,8 @@ export default function GetToken() {
             <Box
                 display="flex"
                 width="444px"
-                flexDirection="column"
-                alignItems="flex-start"
+                flexdirection="column"
+                alignitems="flex-start"
             >
                 <Dialog open={true}>
                     <DialogTitle>{'Запросить токен'}</DialogTitle>

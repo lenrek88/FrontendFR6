@@ -2,32 +2,24 @@ import Paginations from '../pagination/pagination';
 import Select from './select';
 import Genres from './genres';
 import { useState, useEffect } from 'react';
-import { useFilms, useFilmsDispatch } from '../../context/context';
 import { IconButton, Paper, Typography } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import Box from '@mui/material/Box';
 import RangeSlider from './range_slider';
 import Find from '../find/find';
 import { OPTIONS, selectDeafult } from './const';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchFilm } from '../../redux/asyncActions/fetchFilm';
 
 export default function Filters() {
     const [select, setSelect] = useState(selectDeafult);
     const [clearFiltersKey, setClearFiltersKey] = useState(false);
-    const filmContext = useFilms();
-    const filmDispatchContext = useFilmsDispatch();
-    const urlFind = `https://api.themoviedb.org/3/movie/${select === 'Топ рейтовых' ? 'top_rated' : 'popular'}?language=ru&page=${filmContext.page}`;
-
+    const thisPage = useSelector((state) => state.page);
+    const urlFind = `https://api.themoviedb.org/3/movie/${select === 'Топ рейтовых' ? 'top_rated' : 'popular'}?language=ru&page=${thisPage}`;
+    const dispatch = useDispatch();
     useEffect(() => {
-        fetch(urlFind, OPTIONS)
-            .then((response) => response.json())
-            .then((response) => {
-                filmDispatchContext({
-                    type: 'setFilms',
-                    data: response.results,
-                });
-            })
-            .catch((err) => console.error(err));
-    }, [select, filmContext.page]);
+        dispatch(fetchFilm(urlFind, OPTIONS));
+    }, [select, thisPage]);
 
     function chooseSelect(value) {
         setSelect(value);

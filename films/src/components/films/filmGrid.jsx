@@ -1,10 +1,8 @@
 import { Box } from '@mui/material';
 import FilmCard from './filmCard';
 import { useEffect, useState } from 'react';
-import { useFilms } from '../../context/context';
 import getCookie from '../../utils/cookie/getCookie';
 import { useSelector } from 'react-redux';
-import store from '../../redux/store';
 const Token = getCookie('userToken');
 
 const OPTIONS = {
@@ -16,7 +14,6 @@ const OPTIONS = {
 };
 
 export default function FilmGrid() {
-    const filmContext = useFilms();
     const userId = getCookie('userId');
 
     const [favoriteMap, setFavoriteMap] = useState([{ id: 0 }]);
@@ -33,24 +30,23 @@ export default function FilmGrid() {
             .catch((err) => console.error(err));
     }, []);
 
-    const tokens = useSelector((store) => store);
-    console.log(tokens);
-    console.log(store.getState());
+    const films = useSelector((state) => state.results);
+
     return (
         <Box
             sx={{
                 display: 'flex',
-                alignItems: 'flex-start',
+                alignitems: 'flex-start',
                 alignContent: 'flex-start',
                 flex: '1 0 0',
-                alignSelf: 'stretch',
+                alignself: 'stretch',
                 flexWrap: 'wrap',
                 gap: '16px',
                 ml: 1,
             }}
         >
-            {filmContext
-                ? filmContext.results.map((item) => {
+            {films
+                ? films.map((item) => {
                       const isFavorite = favoriteMap.find(
                           (items) => items.id == item.id
                       );

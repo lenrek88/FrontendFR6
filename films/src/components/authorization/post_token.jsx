@@ -16,7 +16,6 @@ import { useDispatch } from 'react-redux';
 export default function PostToken() {
     const [Token, setToken] = useState('');
     const dispatch = useDispatch();
-
     function handlerSetToken() {
         document.cookie = `userToken = ${Token}`;
         console.log(Token);
@@ -43,8 +42,8 @@ export default function PostToken() {
             <Box
                 display="flex"
                 width="444px"
-                flexDirection="column"
-                alignItems="flex-start"
+                flexdirection="column"
+                alignitems="flex-start"
             >
                 <Dialog open={true}>
                     <DialogTitle>{'Введите токен'}</DialogTitle>

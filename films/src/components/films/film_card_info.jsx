@@ -124,10 +124,10 @@ export default function FilmCardInfo() {
                         mx="24px"
                         my="24px"
                         display="flex"
-                        alignItems="flex-start"
+                        alignitems="flex-start"
                         alignContent="flex-start"
                         flex="1 0 0"
-                        alignSelf="stretch"
+                        alignself="stretch"
                         flexWrap="wrap"
                         gap="16px"
                     >

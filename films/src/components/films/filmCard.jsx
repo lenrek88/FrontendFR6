@@ -20,15 +20,15 @@ export default function FilmCard({
                 <Box
                     display="flex"
                     width="460px"
-                    flexDirection="column"
-                    alignItems="flexStart"
+                    flexdirection="column"
+                    alignitems="flexStart"
                     gap="16px"
                 >
                     <Card
                         display="flex"
-                        flexDirection="column"
-                        alignItems="flex-start"
-                        alignSelf="stretch"
+                        flexdirection="column"
+                        alignitems="flex-start"
+                        alignself="stretch"
                     >
                         <CardMedia
                             component="img"
@@ -39,8 +39,8 @@ export default function FilmCard({
 
                         <CardHeader
                             display="flex"
-                            alignSelf="stretch"
-                            alignItems="center"
+                            alignself="stretch"
+                            alignitems="center"
                             padding="16px"
                             title={title}
                             subheader={`Рейтинг: ${vote_average}`}

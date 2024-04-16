@@ -1,6 +1,5 @@
 import './App.css';
 import Header from './components/header/header.jsx';
-import { FilmProvider } from './context/context.js';
 import FilmCardInfo from './components/films/film_card_info.jsx';
 import Content from './components/films/content.jsx';
 import { Route, Routes } from 'react-router-dom';
@@ -13,19 +12,17 @@ function App() {
 
     return (
         <div className="App">
-            <FilmProvider>
-                <Header />
-                {Token ? (
-                    <Routes>
-                        <Route path="/" element={<Content />} />
-                        <Route path="/Film/:id" element={<FilmCardInfo />} />
-                    </Routes>
-                ) : null}
+            <Header />
+            {Token ? (
                 <Routes>
-                    <Route path="/Registration" element={<GetToken />} />
-                    <Route path="/Authorisation" element={<PostToken />} />
+                    <Route path="/" element={<Content />} />
+                    <Route path="/Film/:id" element={<FilmCardInfo />} />
                 </Routes>
-            </FilmProvider>
+            ) : null}
+            <Routes>
+                <Route path="/Registration" element={<GetToken />} />
+                <Route path="/Authorisation" element={<PostToken />} />
+            </Routes>
         </div>
     );
 }

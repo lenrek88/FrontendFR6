@@ -1,12 +1,12 @@
 import { Pagination, Box } from '@mui/material';
-import { useFilms, useFilmsDispatch } from '../../context/context';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPage } from '../../redux/actions';
 
 export default function Paginations() {
-    const filmContext = useFilms();
-    const filmDispatchContext = useFilmsDispatch();
-
+    const filmPage = useSelector((state) => state.page);
+    const dispatch = useDispatch();
     function handleChange(event, value) {
-        filmDispatchContext({ type: 'setPage', page: value });
+        dispatch(setPage(value));
     }
 
     return (
@@ -14,7 +14,7 @@ export default function Paginations() {
             <Pagination
                 count={500}
                 color="primary"
-                page={filmContext.page}
+                page={filmPage}
                 onChange={handleChange}
             />
         </Box>
