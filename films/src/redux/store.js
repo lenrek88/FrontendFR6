@@ -1,27 +1,21 @@
 import { addUserToken, setFilms, setPage } from './actions';
 import { configureStore, createReducer } from '@reduxjs/toolkit';
 
-// const initialFilms = {
-//     page: 1,
-//     token: '',
-//     results: [],
-// };
-
 const filmReducer = createReducer([], (builder) => {
     builder.addCase(setFilms.type, (state, action) => {
-        return state = action.payload;
+        return (state = action.payload);
     });
 });
 
 const userReducer = createReducer('', (builder) => {
     builder.addCase(addUserToken.type, (state, action) => {
-        return state = action.payload;
+        return (state = action.payload);
     });
 });
 
 const pageReducer = createReducer(1, (builder) => {
     builder.addCase(setPage.type, (state, action) => {
-        return state = action.payload;
+        return (state = action.payload);
     });
 });
 
@@ -33,6 +27,6 @@ const store = configureStore({
     },
 });
 
-console.log(store.getState())
+console.log(store.getState());
 
 export default store;

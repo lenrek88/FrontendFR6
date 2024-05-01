@@ -1,0 +1,142 @@
+.App {
+  text-align: center;
+  background: hsl(204, 70%, 19%);
+  background: radial-gradient(ellipse at top,  #0a2e38  0%, #000000 70%);
+  min-height: 100vh;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.App-Header-Clock {
+  font-family: 'Share Tech Mono', monospace;
+  text-align: center;
+  color: #daf6ff;
+  text-shadow: 0 0 20px rgba(10, 175, 230, 1),  0 0 20px rgba(10, 175, 230, 0);
+}
+
+.App-Header-Clock-Date {
+  letter-spacing: 0.1em;
+  font-size: 24px;
+  margin-bottom: 0;
+}
+
+
+.App-Header-Clock-Time {
+  letter-spacing: 0.05em;
+  font-size: 80px;
+  padding: 5px 0;
+  margin: 0;
+}
+
+.App-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+.btnFoodAdd {
+  width: 85px;
+  height: 50px;
+  border-radius: 50px;
+  font-size: 15px;
+  background-color: white;
+  border: none;
+}
+
+.btnFoodClear {
+  background-color: #c94848;
+  color: white;
+  margin-left: 5px;
+}
+
+.inpFood {
+  font-size: 22px;
+  margin-right: 15px;
+}
+
+.addFood {
+  display: flex;
+  justify-content: center;
+}
+
+.ulFood {
+  list-style-type: none;
+}
+
+.ulFood th {
+  padding-left: 40px;
+  padding-bottom: 5vh;
+}
+
+.btnFoodItemClear {
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  background-color: #282c34;
+  color: white;
+  border: none;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+
+
+.addFavorite {
+  background: url(img/Shape.svg) no-repeat;
+  background-size: cover;
+  border: none;
+  padding: 0.5vh;
+  margin: 1vh;
+  width: 2vh;
+  height: 2vh;
+}
+
+.addedFavorite {
+  background: url(img/ShapeLike.svg) no-repeat;
+  background-size: cover;
+  border: none;
+  padding: 0.5vh;
+  margin: 1vh;
+  width: 2vh;
+  height: 2vh;
+}
+
+.modal {
+  height: 100vh;
+  width: 100vw;
+  background-color:  rgba(0,0,0,0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal__content {
+  padding: 20px;
+
+  border-radius: 12px;
+  background-color: #0f3854 ;
+  transform: scale(0.5);
+  transition: 0.4s all;
+}
+
+.modal__content.active {
+  transform: scale(1);
+}
