@@ -598,7 +598,7 @@ function Logger() {
     };
 }
 async function formHandler(e) {
-    if (e) e.preventDefault();
+    e?.preventDefault();
     const logger = new Logger();
     logger.start();
     const cityName = e?.target.textContent.trim() ? e.target.textContent.trim() : getCityName[0].value ? getCityName[0].value : currentCity;

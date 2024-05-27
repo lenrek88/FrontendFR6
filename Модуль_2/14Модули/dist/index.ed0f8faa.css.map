@@ -1,0 +1,1 @@
+{"mappings":"AACA;;;;AAIA","sources":["Модуль_2/14Модули/styles.css"],"sourcesContent":["\r\np {\r\n    display: inline;\r\n}\r\n\r\nbutton {\r\n    background-color: white;\r\n    border-width: 1px;\r\n    border-radius: 2px;\r\n}"],"names":[],"version":3,"file":"index.ed0f8faa.css.map","sourceRoot":"/__parcel_source_root/"}

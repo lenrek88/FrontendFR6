@@ -1,4 +1,4 @@
-11854
+11852
 55D:\Frontend\JavaScript\WeatherNPM\node_modules\path-key133492822988201894 1
 72D:\Frontend\JavaScript\WeatherNPM\node_modules\@lezer\lr\dist\index.d.ts133492809172539643 0
 83D:\Frontend\JavaScript\WeatherNPM\node_modules\@parcel\transformer-babel\src\jsx.js133492809187969225 0
@@ -56,7 +56,7 @@
 81D:\Frontend\JavaScript\WeatherNPM\node_modules\css-select\lib\esm\attributes.d.ts133492809176370140 0
 62D:\Frontend\JavaScript\WeatherNPM\node_modules\posthtml-render133492809170435544 1
 67D:\Frontend\JavaScript\WeatherNPM\node_modules\type-check\README.md133492822988510150 0
-41D:\Frontend\JavaScript\WeatherNPM\main.js133492887207392086 0
+41D:\Frontend\JavaScript\WeatherNPM\main.js133502290240197209 0
 91D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\locale\eo\_lib\formatDistance.d.mts133492808013524348 0
 82D:\Frontend\JavaScript\WeatherNPM\node_modules\update-browserslist-db\package.json133492809170816417 0
 84D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\locale\uk\_lib\localize.d.ts133492808024061223 0
@@ -82,7 +82,7 @@
 64D:\Frontend\JavaScript\WeatherNPM\node_modules\p-locate\index.js133492822987827750 0
 88D:\Frontend\JavaScript\WeatherNPM\node_modules\electron-to-chromium\chromium-versions.js133492809169478365 0
 65D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\sub.d.mts133492808018241957 0
-38D:\Frontend\JavaScript\WeatherNPM\dist133492891583225196 1
+38D:\Frontend\JavaScript\WeatherNPM\dist133494415557673709 1
 73D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\compareDesc.d.mts133492808012457771 0
 93D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\parse\_lib\parsers\SecondParser.d.mts133492808017723082 0
 69D:\Frontend\JavaScript\WeatherNPM\node_modules\run-parallel\README.md133492822988068185 0
@@ -1330,7 +1330,6 @@
 69D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\isThisYear.js133492808000631301 0
 96D:\Frontend\JavaScript\WeatherNPM\node_modules\lmdb\dependencies\lmdb\libraries\liblmdb\crypto.c133492809174201894 0
 94D:\Frontend\JavaScript\WeatherNPM\node_modules\csso\node_modules\css-tree\cjs\lexer\search.cjs133492809177451212 0
-50D:\Frontend\JavaScript\WeatherNPM\dist\main.js.map133492809643764508 0
 71D:\Frontend\JavaScript\WeatherNPM\node_modules\weak-lru-cache\README.md133492809171306519 0
 84D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\locale\eo\_lib\formatLong.js133492807998450086 0
 98D:\Frontend\JavaScript\WeatherNPM\node_modules\@swc\helpers\src\_iterable_to_array_limit_loose.mjs133492809183307679 0
@@ -3144,7 +3143,7 @@
 59D:\Frontend\JavaScript\WeatherNPM\node_modules\lmdb\keys.js133492809179031952 0
 77D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\fp\startOfSecond.d.ts133492808025527991 0
 71D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\isThisMonth.mjs133492808008622318 0
-61D:\Frontend\JavaScript\WeatherNPM\dist\ShapeLike.31ee8ab1.svg133492891412106394 0
+61D:\Frontend\JavaScript\WeatherNPM\dist\ShapeLike.31ee8ab1.svg133494412997096915 0
 60D:\Frontend\JavaScript\WeatherNPM\node_modules\lmdb\level.js133492809179061980 0
 93D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\locale\nl-BE\_lib\formatRelative.d.ts133492808021527389 0
 85D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\locale\mn\_lib\formatLong.mjs133492808006766607 0
@@ -4209,7 +4208,6 @@
 69D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\locale\km.mjs133492808008861503 0
 77D:\Frontend\JavaScript\WeatherNPM\node_modules\fast-deep-equal\es6\react.d.ts133492822988735987 0
 67D:\Frontend\JavaScript\WeatherNPM\node_modules\esutils\package.json133492822987652964 0
-46D:\Frontend\JavaScript\WeatherNPM\dist\main.js133492809643714465 0
 66D:\Frontend\JavaScript\WeatherNPM\node_modules\esutils\lib\code.js133492822988450104 0
 67D:\Frontend\JavaScript\WeatherNPM\node_modules\estraverse\.jshintrc133492822987591377 0
 69D:\Frontend\JavaScript\WeatherNPM\node_modules\estraverse\LICENSE.BSD133492822987837761 0
@@ -6272,7 +6270,7 @@
 79D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\locale\eu\_lib\match.js133492808002008045 0
 65D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\locale\bg133492807997190747 1
 88D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\locale\zh-CN\_lib\localize.d.mts133492808016716909 0
-56D:\Frontend\JavaScript\WeatherNPM\dist\index.63aff760.js133492891583185117 0
+56D:\Frontend\JavaScript\WeatherNPM\dist\index.63aff760.js133494415557673709 0
 121D:\Frontend\JavaScript\WeatherNPM\node_modules\@parcel\source-map\parcel_sourcemap_node\artifacts\index.darwin-arm64.node133492809174091796 0
 76D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\fp\fromUnixTime.d.ts133492808021788822 0
 68D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\locale\bg.js133492807995782856 0
@@ -8907,7 +8905,7 @@
 80D:\Frontend\JavaScript\WeatherNPM\node_modules\@parcel\workers\lib\WorkerFarm.js133492809179843593 0
 75D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\fp\startOfDecade.js133492808003384019 0
 76D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\fp\startOfDecade.mjs133492808011522950 0
-57D:\Frontend\JavaScript\WeatherNPM\dist\index.39fd2320.css133492891412136425 0
+57D:\Frontend\JavaScript\WeatherNPM\dist\index.39fd2320.css133494412996866697 0
 75D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\fp\startOfHour.d.ts133492808025394179 0
 79D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\fp\startOfISOWeek.d.mts133492808018087268 0
 76D:\Frontend\JavaScript\WeatherNPM\node_modules\date-fns\fp\startOfISOWeek.js133492808003384019 0
@@ -9278,7 +9276,7 @@
 130D:\Frontend\JavaScript\WeatherNPM\node_modules\@parcel\optimizer-svgo\node_modules\css-tree\lib\syntax\node\PseudoClassSelector.js133492809177709291 0
 83D:\Frontend\JavaScript\WeatherNPM\node_modules\css-tree\lib\syntax\node\Selector.js133492809181309468 0
 85D:\Frontend\JavaScript\WeatherNPM\node_modules\css-tree\lib\syntax\node\StyleSheet.js133492809181456344 0
-61D:\Frontend\JavaScript\WeatherNPM\dist\index.39fd2320.css.map133492891412166566 0
+61D:\Frontend\JavaScript\WeatherNPM\dist\index.39fd2320.css.map133494412996956764 0
 87D:\Frontend\JavaScript\WeatherNPM\node_modules\css-tree\lib\syntax\node\TypeSelector.js133492809181631558 0
 62D:\Frontend\JavaScript\WeatherNPM\node_modules\clone\README.md133492809169688420 0
 83D:\Frontend\JavaScript\WeatherNPM\node_modules\@parcel\core\src\summarizeRequest.js133492809199811253 0
@@ -11848,8 +11846,8 @@
 62D:\Frontend\JavaScript\WeatherNPM\node_modules\.bin\semver.cmd133492809246249302 0
 56D:\Frontend\JavaScript\WeatherNPM\node_modules\.bin\svgo133492809246249302 0
 60D:\Frontend\JavaScript\WeatherNPM\node_modules\.bin\svgo.cmd133492809246249302 0
-57D:\Frontend\JavaScript\WeatherNPM\dist\cross.794de448.svg133492891412720761 0
-58D:\Frontend\JavaScript\WeatherNPM\dist\Finder.f8f98c8f.svg133492891412106394 0
-60D:\Frontend\JavaScript\WeatherNPM\dist\index.63aff760.js.map133492891583215175 0
-49D:\Frontend\JavaScript\WeatherNPM\dist\index.html133492891412720761 0
-57D:\Frontend\JavaScript\WeatherNPM\dist\Shape.5de1a5f4.svg133492891412551734 0
+57D:\Frontend\JavaScript\WeatherNPM\dist\cross.794de448.svg133494412996936755 0
+58D:\Frontend\JavaScript\WeatherNPM\dist\Finder.f8f98c8f.svg133494412997096915 0
+60D:\Frontend\JavaScript\WeatherNPM\dist\index.63aff760.js.map133494415557673709 0
+49D:\Frontend\JavaScript\WeatherNPM\dist\index.html133494412996936755 0
+57D:\Frontend\JavaScript\WeatherNPM\dist\Shape.5de1a5f4.svg133494412996806642 0

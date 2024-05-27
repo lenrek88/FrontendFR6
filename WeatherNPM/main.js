@@ -23,16 +23,16 @@ function Logger() {
     this.end = function () {
         this.result = Date.now() - this.result;
     }
-
+    
 }
 
 
 async function formHandler(e) {
 
-    if(e) {
-        e.preventDefault();
+    
+    e?.preventDefault();
 
-    }
+  
     
     const logger = new Logger();
 
