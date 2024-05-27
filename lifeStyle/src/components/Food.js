@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    changeAvailabilityFood,
     changeCellItem,
     clearAvailabilityFood,
     clearAvailabilityFoodItem,
@@ -9,8 +8,6 @@ import {
     addFavorite,
 } from '../store/action';
 import { useEffect, useState } from 'react';
-import Favorites from './Favorites';
-import { SERVER_URL } from './const';
 import {
     Box,
     TextField,
@@ -18,61 +15,25 @@ import {
     TableHead,
     TableBody,
     Table,
-    FormControl,
-    Button,
     Typography,
 } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { FormAddFood } from './FormAddFood';
 import { StyledTableCell, StyledTableRow } from './const_UI';
 
 export function Food() {
     const dispatch = useDispatch();
-    const addFood = (pr) => dispatch(changeAvailabilityFood(pr));
     const clearFood = (pr) => dispatch(clearAvailabilityFood(pr));
     const clearFoodItem = (pr) => dispatch(clearAvailabilityFoodItem(pr));
     const food = useSelector((state) => state.food);
     const favorite = useSelector((state) => state.favorite);
-    const [value, setValue] = useState('');
-    const [favorites, setFavorites] = useState(false);
 
     useEffect(() => {
         localStorage.setItem('state_food', JSON.stringify(food));
         localStorage.setItem('state_favorite', JSON.stringify(favorite));
     }, [food]);
-
-    function changeValue(e) {
-        setValue(e.target.value);
-    }
-
-    function addToFood(e) {
-        e.preventDefault();
-        if (value !== '') {
-            const url = `${SERVER_URL}${value}`;
-            fetch(url)
-                .then((responce) => responce.json())
-                .then((result) => {
-                    const productName = result.product.product_name;
-                    const proteins = result.product.nutriments.proteins;
-                    const fat = result.product.nutriments.fat;
-                    const carbohydrates =
-                        result.product.nutriments.carbohydrates;
-                    const img = result.product.image_front_thumb_url;
-                    const paylaod = [
-                        productName,
-                        proteins,
-                        fat,
-                        carbohydrates,
-                        img,
-                    ];
-                    addFood(paylaod);
-                    setValue('');
-                });
-        } else {
-            alert('Введите номер штрих-кода!');
-        }
-    }
 
     function clearToFood(e) {
         e.preventDefault();
@@ -174,58 +135,7 @@ export function Food() {
     });
     return (
         <Box>
-            <FormControl
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    flexDirection: 'row',
-                }}
-            >
-                <TextField
-                    variant="standard"
-                    autoFocus
-                    label="Введите штриховой код"
-                    sx={{
-                        '& label': {
-                            color: 'white',
-                            '&.Mui-focused': {
-                                color: '#c8ae04',
-                            },
-                        },
-                        input: {
-                            color: '#c8ae04',
-                            fontSize: 'calc(10px + 2vmin)',
-                            width: 'calc(500px + 2vmin)',
-                        },
-                    }}
-                    value={value}
-                    onChange={changeValue}
-                />
-                <Button size="small" variant="contained" onClick={addToFood}>
-                    Добавить еду
-                </Button>
-                <Button
-                    size="small"
-                    color="error"
-                    variant="contained"
-                    onClick={clearToFood}
-                >
-                    Очистить еду
-                </Button>
-                <Button
-                    size="small"
-                    color="warning"
-                    variant="contained"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        setFavorites(true);
-                    }}
-                >
-                    Избранное
-                </Button>
-            </FormControl>
-
-            <Favorites active={favorites} setActive={setFavorites} />
+            <FormAddFood clearToFood={clearToFood}></FormAddFood>
 
             <Typography variant="h3" lineHeight="3">
                 Продукты в наличии:
