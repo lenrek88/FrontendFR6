@@ -4,12 +4,13 @@ import { SERVER_URL } from './const';
 import Favorites from './Favorites';
 import { useState } from 'react';
 import { changeAvailabilityFood } from '../store/action';
+import FormAddFoodFormControl from './FormAddFoodFormControl';
 export function FormAddFood({ clearToFood }) {
     const [value, setValue] = useState('');
     const [favorites, setFavorites] = useState(false);
 
-    const addFood = (pr) => dispatch(changeAvailabilityFood(pr));
     const dispatch = useDispatch();
+    const addFood = (pr) => dispatch(changeAvailabilityFood(pr));
     function changeValue(e) {
         setValue(e.target.value);
     }
@@ -44,56 +45,13 @@ export function FormAddFood({ clearToFood }) {
 
     return (
         <Box>
-            <FormControl
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    flexDirection: 'row',
-                }}
-            >
-                <TextField
-                    variant="standard"
-                    autoFocus
-                    label="Введите штриховой код"
-                    sx={{
-                        '& label': {
-                            color: 'white',
-                            '&.Mui-focused': {
-                                color: '#c8ae04',
-                            },
-                        },
-                        input: {
-                            color: '#c8ae04',
-                            fontSize: 'calc(10px + 2vmin)',
-                            width: 'calc(500px + 2vmin)',
-                        },
-                    }}
-                    value={value}
-                    onChange={changeValue}
-                />
-                <Button size="small" variant="contained" onClick={addToFood}>
-                    Добавить еду
-                </Button>
-                <Button
-                    size="small"
-                    color="error"
-                    variant="contained"
-                    onClick={clearToFood}
-                >
-                    Очистить еду
-                </Button>
-                <Button
-                    size="small"
-                    color="warning"
-                    variant="contained"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        setFavorites(true);
-                    }}
-                >
-                    Избранное
-                </Button>
-            </FormControl>
+            <FormAddFoodFormControl
+                value={value}
+                changeValue={changeValue}
+                addToFood={addToFood}
+                clearToFood={clearToFood}
+                setFavorites={setFavorites}
+            />
             <Favorites active={favorites} setActive={setFavorites} />
         </Box>
     );

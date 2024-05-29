@@ -6,9 +6,9 @@ import {
     ACTION_ADD_FAVORITE,
     ACTION_CLEAR_FAVORITE,
     ACTION_ADD_FOOD_FROM_FAVORITE,
-} from '../index';
-import { ACTION_CLEAR_AVAILABILITY_FOOD } from '../index';
-import { ACTION_CLEAR_FOOD_ITEM } from '../index';
+} from './action';
+import { ACTION_CLEAR_AVAILABILITY_FOOD } from './action';
+import { ACTION_CLEAR_FOOD_ITEM } from './action';
 
 const initalState = {
     food: JSON.parse(localStorage.getItem('state_food')),
@@ -91,7 +91,7 @@ export const rootReducer = (state = initalState, action) => {
                 ],
             };
         case ACTION_ADD_FOOD_FROM_FAVORITE: {
-            let foodFromFavorite2 = state.food.find(
+            const foodFromFavorite2 = state.food.find(
                 (element) => element.id === action.payload.id
             );
             let foodFromFavorite;
@@ -118,7 +118,7 @@ export const rootReducer = (state = initalState, action) => {
                 ],
             };
         case ACTION_CHANGE_CELL_ITEM: {
-            let newState = state.food.map((obj) => {
+            const newState = state.food.map((obj) => {
                 if (obj.id === action.id) {
                     const rows = obj.rows.map((field) => {
                         if (field.field === action.field) {
@@ -141,7 +141,7 @@ export const rootReducer = (state = initalState, action) => {
             return { ...state, food: newState };
         }
         case ACTION_EDIT_CELL_ITEM_START: {
-            let newState2 = state.food.map((obj) => {
+            const newState2 = state.food.map((obj) => {
                 if (obj.id === action.id) {
                     const rows = obj.rows.map((field) => {
                         if (field.field === action.field) {
@@ -158,7 +158,7 @@ export const rootReducer = (state = initalState, action) => {
             return { ...state, food: newState2 };
         }
         case ACTION_EDIT_CELL_ITEM_END: {
-            let newState3 = state.food.map((obj) => {
+            const newState3 = state.food.map((obj) => {
                 if (obj.id === action.id) {
                     const rows = obj.rows.map((field) => {
                         if (field.field === action.field) {
@@ -177,7 +177,7 @@ export const rootReducer = (state = initalState, action) => {
 
         case ACTION_ADD_FAVORITE: {
             let newAddFavoriteArray;
-            let newState4 = state.food.map((obj) => {
+            const newState4 = state.food.map((obj) => {
                 if (obj.id === action.id) {
                     if (obj.favorite) {
                         newAddFavoriteArray = [
